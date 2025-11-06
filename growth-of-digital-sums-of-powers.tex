@@ -33,7 +33,7 @@
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G Radcliffe}
-\date{\today}
+\date{November 6, 2025}
 
 \begin{document}
 
@@ -80,7 +80,7 @@
 	\]
 
 	Our new sequence grows much more slowly, and it is not monotonic. 
-  Nevertheless, it is reasonable to conjecture that it diverges to infinity. 
+  Nevertheless, it is reasonable to conjecture that it increases to infinity. 
   Indeed, one might guess that the sum of the decimal digits of $2^{n}$ 
   is asymptotic to $4.5 n \log_{10}2$, 
   since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits, 
@@ -94,7 +94,7 @@
 	$c_{b}(n)$. For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
 	prime factorization of $n$.
 
-  \section*{Digital sums of powers of two}
+  \section{Digital sums of powers of two}
 
 	Let us prove that $\lim_{n\to\infty}c_{10}(2^{n}) = \infty$. 
 
@@ -255,18 +255,19 @@
 	\end{theorem}
 
 	\begin{proof}
-    Let $p_1^{e_1} \cdots p_r^{e_m}$ be the prime factorization of $b$.
-    Then $d = p_1^{f_1} \cdots p_r^{f_m}$, where some of the $f_i$ may be zero.
+    Let $p_1^{e_1} \cdots p_t^{e_t}$ be the prime factorization of $b$.
+    Then $d = p_1^{f_1} \cdots p_t^{f_t}$, where $f_i = \nu_{p_i}(a)$.
+    Note that some of the $f_i$ may be zero.
     If 
     \[
-      \frac{f_1}{e_1} = \cdots = \frac{f_m}{e_m}
+      \frac{f_1}{e_1} = \cdots = \frac{f_t}{e_t}
     \]
     then $\log(d) / \log(b) = f_1/e_1$, which is rational.
 %
     Therefore, if $\log(d) / \log(b)$ is irrational, then the ratios
     $f_i/e_i$ are not all equal, which implies that $b$ has two prime
     factors $p = p_i$ and $q = p_j$ such that $f_i / e_i > f_j / e_j$, 
-    hence $\phi_{b,p,q}(a) > 0$.
+    and so $\phi_{b,p,q}(a) > 0$.
   
     Let $r = \lceil \log(b) / \log(p) \rceil$, and let $m_k = r^{k-1}$ for $k \ge 1$.
     This sequence satisfies $m_1 \ge 1$ and $p^{m_k} > b^{m_{k-1}}$
@@ -274,7 +275,7 @@
 %
     Let $n$ be a positive integer, and let $k = \lfloor \log_r n \rfloor$,
     so that $r^{k-1} < n \le r^k$. Then $a^n$ is divisible by $p^n$,
-    which is greater than $b^{m_k}$. Therefore,
+    which is greater than $p^{m_k}$. Therefore,
     $c_{b}(a^n) \ge k \ge \log_r(n)$ by Theorem \ref{phi-lower-bound}.
 	\end{proof}
 
@@ -288,7 +289,7 @@
 		c_{b}(a^{n}) > \frac{\log n}{\log \log n + C} - 1
 	\]
 	for $n > 4$, where $C$ depends on $a$ and $b$ alone.
-  Theorem \ref{general-digit-sum} achieves a stronger bound, 
+  Theorem \ref{general-digit-sum} achieves a stronger bound than this, 
   but with stricter conditions on $a$ and $b$.
 
 	\section{Related sequences}
