@@ -326,14 +326,15 @@
 	\section{Digital sums of powers: the general case}
 
 		In this final section, we will prove that the number of nonzero digits in the base-$b$
-		expansion of $a^n$ increases to infinity with $n$, provided that $\log(b)/\log(a)$.
+		expansion of $a^n$ increases to infinity with $n$, provided that $\log(b)/\log(a)$
+		is irrational. This result has been proven before \cite{senge-straus1973,stewart1980},
+		but our exposition should be accessible to a wider audience.
 
-		This condition is necessary, because if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
+		The condition is necessary, because if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
 		$a^{ns} = b^{nr}$ for all $n$, so $a^{ns}$ has only one nonzero digit in its base-$b$
 		expansion.
 
-		The proof is not elementary, as it relies on a deep result in transcendental number theory,
-		concerning linear forms in logarithms.
+		Our proof relies on a deep result in transcendental number theory, which will not be proved here.
 
 		\begin{theorem} \cite[p. 23]{baker1975}
 			Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
@@ -358,14 +359,13 @@
 		% since $a^s = b^r$. So we will assume for the remainder of this section that
 		% $\log(a)/\log(b)$ is irrational.
 
+		We will need the following lemma, in case some power of $a$ is divisible by $b$.
 		\begin{lemma}
 			Let $a, b \ge 2$ be integers such that $\log(a)/\log(b)$ is irrational.
 			Then there exists a constant $C > 0$ so that if $a^n = b^r m$ and $m \nmid d$
 			then $\log m > Cn$.
 			\label{lemma}
 		\end{lemma}
-
-
 
 		\begin{proof}
 			If $\log(a)/\log(b)$ is irrational then there exist primes $p, q$ so that
@@ -377,6 +377,8 @@
 			so $\log m > Cn$ where $C = \xi(a) \log p > 0$.
 		\end{proof}
 
+		At last, we can prove our main result.
+
 		\begin{theorem} 
 			Let $a, b \ge 2$ be integers, and suppose that $\log(a)/\log(b)$ is irrational.
 			Then $c_b(a^n)$ increases to infinity with $n$.
@@ -384,18 +386,18 @@
 
 		\begin{proof}
 			Let
-			\begin{equation}
-				a^n = b^m (d_i b^{-m_1} + \cdots + d_r b^{-m_r}),
-			\end{equation}
+			\begin{equation*}
+				a^n = b^m (d_i b^{-m(1)} + \cdots + d_r b^{-m(r)}),
+			\end{equation*}
 			where $m = \lfloor \log_b a \rfloor$, $r = c_b(a^n)$, $d_i \in \{1, \ldots, b-1\}$,
-			and $1 = m_1 < \cdots < m_r \le m$. Assume that $r \ge 2$.
+			and $1 = m(1) < \cdots < m(r) \le m$. Assume that $r \ge 2$.
 
-			Choose $i \in \{1, \ldots, r-1\}$. We seek an upper bound on $m_{i+1}/m_i$,
+			Choose $i \in \{1, \ldots, r-1\}$. We seek an upper bound on $m(i+1)/m(i)$,
 			which will imply an upper bound on $n$.
 
-			Let $q = b^{m_i} (d_1 b^{-m_1} + \cdots + d_i b^{-m_i})$ and
-			$r = b^m (d_{i+1} b^{-m_{i+1}} + \cdots d_r b^{-m_r})$, so that
-			$a^n = b^{m - m_i} q + r$. 
+			Let $q = b^{m(i)} (d_1 b^{-m(1)} + \cdots + d_i b^{-m(i)})$ and
+			$r = b^m (d_{i+1} b^{-m(i+1)} + \cdots d_r b^{-m(r)})$, so that
+			$a^n = b^{m - m(i)} q + r$. 
 
 			% Let $q = \lfloor b^{m-m_i} a^n \rfloor$ and $r = a^n \bmod b^{m-m_i}$, so that
 			% $a^n = b^{m-m_i} q + r$.
@@ -404,30 +406,34 @@
 			Observe that the following inequalities hold:
 			\begin{align*}
 			    b^{m-1} &< a^n < b^m, \\
-                b^{m_i-1} &< q < b^{m_i}, \\
-				b^{m-m_{i+1}} &< r < b^{m-m_{i+1}+1}.
+                b^{m(i)-1} &< q < b^{m(i)}, \\
+				b^{m-m(i+1)} &< r < b^{m-m(i+1)+1}.
 			\end{align*}
 
 			By combining these inequalities, we find that
 			\begin{equation}
-				-\log(a^{-n} r) / \log(q) \approx m_{i+1} / m_i.
+				-\log(a^{-n} r) / \log(q) \approx m(i+1) / m(i).
+				\label{estimate-1}
 			\end{equation}
 
-			Let $\Lambda = n \log a + (m - m_i) \log b + \log q$.
-			Then $|\Lambda| = \log(1 + a^{-n} r) < a^{-n} r$.
-			But by Theorem \ref{baker}, $|\Lambda| > C^{-\log n \log q}$ for some $C > 1$
+			Let $\Lambda = -n \log a + (m - m(i)) \log b + \log q$.
+			Then $|\Lambda| = -\log(1 - a^{-n} r) \approx a^{-n} r$.
+			By Theorem \ref{baker}, $|\Lambda| > C^{-\log n \log q}$ for some $C > 1$
 			depending only on $a$ and $b$. Therefore, $a^{-n} r > C^{-\log n \log q}$,
 			so
 			\begin{equation}
-				-\log(a^{-n} r) / \log(q) < C' \log n.
+				-\log(a^{-n} r) / \log(q) < \log n + C.
+				\label{estimate-2}
 			\end{equation}
 
-			Since $\log m_r = \sum_{i=1}^{r-1} \log(m_{i+1}/m_i)$, Equations (2) and (3) imply that
-			\[
-			   m_r < r (\log \log n + C).
-			\]
+			Since $\log m_r = \sum_{i=1}^{r-1} \log(m(i+1)/m(i))$, 
+			Equations \ref{estimate-1} and \ref{estimate-2} imply that
+			\begin{equation}
+			   m(r) < (r - 1) (\log \log n + C).
+			   \label{estimate-3}
+			\end{equation}
 
-			But $m_r = \Theta(\log n)$ by Lemma \ref{lemma}, hence
+			But $m(r) = \Theta(\log n)$ by Lemma \ref{lemma}, hence
 			\[
 			r > \frac{\log n}{\log \log n + C}
 			\]
