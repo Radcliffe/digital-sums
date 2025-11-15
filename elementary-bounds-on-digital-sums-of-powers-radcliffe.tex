@@ -16,7 +16,7 @@
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G Radcliffe}
-\date{November 7, 2025}
+\date{November 15, 2025}
 
 \begin{document}
 
@@ -26,6 +26,9 @@
 		such that $\gcd(a/d, b) = 1$.
 		Our approach uses only elementary number theory and applies to a wide class of sequences, 
 		including factorials and $\Lambda(n) = \lcm(1, 2, \ldots, n)$.
+		We conclude with an expository proof of the previously known result that
+		the sum of the base-$b$ digits of $a^{n}$ tends to infinity with $n$ if and only if
+		$\log(a)/\log(b)$ is irrational.
 	\end{abstract}
 
 	\maketitle
@@ -39,7 +42,7 @@
 			increases to infinity with $n$.}
 		\end{quote}
 
-		The reader is urged to try to solve this problem on their own before proceeding.
+		The reader is urged to attempt this problem on their own before proceeding.
 		Note that it is not enough to prove that the sum of digits of $2^{n}$ is
 		unbounded, since the sequence is not monotonic.
 
@@ -60,7 +63,7 @@
 		\]
 
 		Our new sequence grows much more slowly, and it is not monotonic. 
-		Nevertheless, it is reasonable to conjecture that it increases to infinity. 
+		Nevertheless, it is reasonable to conjecture that it tends to infinity. 
 		Indeed, one might guess that the sum of the decimal digits of $2^{n}$ 
 		is asymptotic to $4.5 n \log_{10}2$, 
 		since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits, 
@@ -73,11 +76,11 @@
 		These functions are asymptotic to each other, since $c_{b}(n) \le s_{b}(n) \le
 		(b-1) c_{b}(n)$ for all $n$ and $b$; so we will restrict our attention to
 		$c_{b}(n)$. For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
-		prime factorization of $n$.
+		prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
 
 	\section{Digital sums of powers of two}
 
-		We will present an informal proof that $\lim_{n\to\infty} c_{10}(2^{n}) = \infty$.
+		We will present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
 		The key idea, which might seem too obvious to state, is that a positive multiple 
 		of a number cannot be smaller than that number.
 
@@ -101,7 +104,7 @@
 
 		We can continue in this way, finding longer and longer non-overlapping blocks
 		of digits, each containing at least one nonzero digit, as illustrated in Figure \ref{fig-blocks}.
-		This shows that $2^n$ increases to infinity with $n$.
+		This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
   
 		\begin{figure}[h]
 			$2^{103}$ = \framebox{$101412048018258352$}\framebox{$1197362564$}\framebox{$300$}\framebox{$8$}
@@ -121,13 +124,18 @@
 
 		\begin{proof}
 			The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume
-			that $k \ge 2$. By the division algorithm, there exist integers $q \ge 0$ and
-			$0 \le r < 10^{\varepsilon(k-1)}$ such that $n = 10^{\varepsilon(k-1)}q + r$.
+			that $k \ge 2$. 
+			By the division algorithm, there exist integers $q$ and $r$ such that
+			\[
+				n = 10^{\varepsilon(k-1)} q + r,
+			\]
+			where $q \ge 0$ and $0 \le r < 10^{\varepsilon(k-1)}$.
+			
 
 			Since $n \ge 2^{\varepsilon(k)} > 10^{\varepsilon(k-1)}$, it follows that $q \ge 1$.
 
 			Since $n$ and $10^{\varepsilon(k-1)}$ are divisible by $2^{\varepsilon(k-1)}$, 
-			$r$ is also divisible by $2^{\varepsilon(k-1)}$. 
+			the integer $r$ is also divisible by $2^{\varepsilon(k-1)}$. 
 			But $r$ is not divisible by $10$,
 			so $c_{10}(r) \ge k - 1$, by the induction hypothesis.
 
@@ -149,7 +157,11 @@
 		\begin{proof}
 			Let $\varepsilon(k) = 4^{k-1}$ for $k \ge 1$. 
 			This sequence satisfies $\varepsilon(1) \ge 1$
-			and $2^{\varepsilon(k)} > 10^{\varepsilon(k-1)}$ for all $k \ge 2$.
+			and 
+			\[
+				2^{\varepsilon(k)} > 10^{\varepsilon(k-1)}
+			\]
+			for all $k \ge 2$.
 			
 			Let $n\ge 4$ be a positive integer, and let $k = \lceil \log_4 n \rceil$,
 			so that $4^{k-1} < n \le 4^k$. Then $a^n$ is divisible by $2^n$,
@@ -159,6 +171,9 @@
 			Therefore,
 			$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
 		\end{proof}
+
+		{\bf Exercise.} Show that every power of 3 has a multiple $m$, not divisible by $10$,
+		such that $c_{10}(m) = 2$.
 
 	\section{Generalizing to other bases}
 
@@ -170,21 +185,24 @@
 			prime divisor of $b$. Let $(\varepsilon(k))_{k\ge1}$ be a sequence of integers such
 			that $\varepsilon(1) \ge 1$ and $p^{\varepsilon(k)} > b^{\varepsilon(k-1)}$ for all $k \ge 2$. 
 			If $\nu_p(n) \ge \varepsilon(k)$ and $b \nmid n$ then $c_b(n) \ge k$.
-			% If $n$ is a positive integer that is divisible by $p^{\varepsilon(k)}$ but not divisible by $b$, 
-			% then $c_{b}(n) \ge k$.
 			\label{general-powers-lower-bound}
 		\end{theorem}
 
 		\begin{proof}
 			The proof is by induction on $k$. The case $k = 1$ is trivial, so let us assume
-			that $k \ge 2$. By the division algorithm, there exist integers $q \ge 0$ and
-			$0 \le r < b^{\varepsilon(k-1)}$ such that $n = b^{\varepsilon(k-1)}q + r$.
+			that $k \ge 2$. By the division algorithm, there exist integers 
+			$q$ and $r$ such that
+			\[
+				n = b^{\varepsilon(k-1)}q + r,
+			\]
+			where $q \ge 0$ and $0 \le r < b^{\varepsilon(k-1)}$.
 
 			Since $n \ge p^{\varepsilon(k)}> b^{\varepsilon(k-1)}$, it follows that $q \ge 1$.
 
-			Since $n$ and $b^{\varepsilon(k-1)}$ are divisible by $p^{\varepsilon(k-1)}$, $r$ is also
-			divisible by $p^{\varepsilon(k-1)}$. But $r$ is not divisible by $b$, so 
-			$c_{b}(r) \ge k - 1$, by the induction hypothesis.
+			Since $n$ and $b^{\varepsilon(k-1)}$ are divisible by $p^{\varepsilon(k-1)}$, 
+			the integer $r$ is also divisible by $p^{\varepsilon(k-1)}$. 
+			But $r$ is not divisible by $b$, 
+			so $c_{b}(r) \ge k - 1$, by the induction hypothesis.
 
 			Note that $c_{b}(n) = c_{b}(q) + c_{b}(r)$, since the digit expansion of $n$
 			is the concatenation of the digit expansions of $q$ and $r$, possibly with
@@ -198,8 +216,8 @@
 			\[
 				\xi(n) = \nu_{p}(n) - \nu_{q}(n) \frac{\nu_{p}(b)}{\nu_{q}(b)}.
 			\]
-		It is easy to verify that $\xi(b^r m) = \xi(m)$ for all $r \ge 0$
-		and $m \ge 1$. Intuitively, $\xi$ is a modified $\nu_p$
+		The reader can verify that $\xi(b^r u) = \xi(u)$ for all $r \ge 0$
+		and $u \ge 1$. Intuitively, $\xi$ is a modified $\nu_p$
 		that ignores trailing zeros in the base-$b$ representation of its argument.
 
 		\begin{theorem}
@@ -214,19 +232,18 @@
 		\end{theorem}
 
 		\begin{proof}
-			Write $n$ as $b^{r} m$, where $m$ is not divisible by $b$. 
-			Note that $\xi(n) = \xi(m)$. 
-			Since $\nu_{p}(m) \ge \xi(m) \ge \varepsilon(k)$
-			and $b \nmid m$, Theorem \ref{general-powers-lower-bound} implies that
-			$c_{b}(m) \ge k$. But $c_{b}(m) = c_{b}(n)$, since $m$ and $n$ have the same
+			Write $n$ as $b^{r} u$, where $u$ is not divisible by $b$. 
+			Note that $\xi(n) = \xi(u)$. 
+			Since $\nu_{p}(u) \ge \xi(u) \ge \varepsilon(k)$
+			and $b \nmid u$, Theorem \ref{general-powers-lower-bound} implies that
+			$c_{b}(u) \ge k$. But $c_{b}(u) = c_{b}(n)$, since $u$ and $n$ have the same
 			digits in base $b$, apart from trailing zeros. Therefore, $c_{b}(n) \ge k$.
 		\end{proof}
 
 		\begin{theorem}
 			Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
-			such that $\gcd(a/d, b) = 1$.
-			If $\log(d) / \log(b)$ is irrational, then 
-			$c_{b}(a^{n}) \ge \log_r n$ for all $n \ge 1$, where $r \ge 2$ is an integer
+			such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
+			Then $c_{b}(a^{n}) \ge \log_r n$ for all $n \ge 1$, where $r \ge 2$ is an integer
 			depending only on $a$ and $b$.
 			In particular, $\lim_{n\to\infty}c_{b}(a^{n}) = \infty$.
 			\label{general-digit-sum}
@@ -234,7 +251,11 @@
 
 		\begin{proof}
 			Let $p_1^{e_1} \cdots p_t^{e_t}$ be the prime factorization of $b$.
-			Then $d = p_1^{f_1} \cdots p_t^{f_t}$, where $f_i = \nu_{p_i}(a)$.
+			Then
+			\[
+				d = p_1^{f_1} \cdots p_t^{f_t},
+			\]
+			where $f_i = \nu_{p_i}(a)$.
 			Note that some of the $f_i$ may be zero.
 			If 
 			\[
@@ -243,11 +264,17 @@
 			then $\log(d) / \log(b) = f_1/e_1$, which is rational.
 			Therefore, if $\log(d) / \log(b)$ is irrational, then the ratios
 			$f_i/e_i$ are not all equal, which implies that $b$ has two prime
-			factors $p = p_i$ and $q = p_j$ such that $f_i / e_i > f_j / e_j$, 
+			factors $p = p_i$ and $q = p_j$ such that
+			\[
+				\frac{f_i}{e_i} > \frac{f_j}{e_j},
+			\]
 			and so $\xi(a) > 0$.
-		
+
 			Let $r = \lceil \log(b) / \log(p) \rceil$, and let $\varepsilon(k) = r^{k-1}$ for $k \ge 1$.
-			This sequence satisfies $\varepsilon(1) \ge 1$ and $p^{\varepsilon(k)} > b^{\varepsilon(k-1)}$
+			This sequence satisfies $\varepsilon(1) \ge 1$ and
+			\[
+				p^{\varepsilon(k)} > b^{\varepsilon(k-1)}
+			\]
 			for all $k \ge 2$.
 			
 			Let $n$ be a positive integer, and let $k = \lceil \log_r n \rceil$,
@@ -269,198 +296,276 @@
 		for $n > 4$, where $C$ depends on $a$ and $b$ alone.
 		Theorem \ref{general-digit-sum} achieves a stronger bound, 
 		but with stricter conditions on $a$ and $b$.
+		We will replicate Stewart's result in Section \ref{general-case}.
 
 	\section{Related sequences}
 
 		Theorem \ref{phi-lower-bound} can be applied to many other sequences. 
 		We will give two examples here. 
-		As before, let $b \ge 2$ be an integer, 
-		and let $p$ and $q$ be distinct prime divisors of $b$.
+		% As before, let $b \ge 2$ be an integer, 
+		% and let $p$ and $q$ be distinct prime divisors of $b$.
 
-		\subsection*{Factorials}
+		\begin{theorem}
+			Let $b \ge 2$ be an integer. Suppose that $b$ has prime divisors $p$ and $q$
+			such that
+			\[
+				(p - 1) \nu_{p}(b) \ne (q-1) \nu_{q}(b).
+			\]
+			Then $c_b(n!) > C \log n$ for some $C > 0$ depending only on $b$.
+			In particular, $c_b(n!) \to \infty$ as $n \to \infty$.
+		\end{theorem}
+		
+		\begin{proof}
+			Assume without loss of generality that
+			$(p - 1) \nu_{p}(b) < (q-1) \nu_{q}(b)$.
+			This condition may be rewritten as
+			\[
+				\frac{1}{p-1} - \frac{\nu_q}{(q - 1) \nu_q(b)} > 0.
+			\]
 
 			By Legendre's formula\cite[p. 263]{dickson1919},
-			$\nu_{p}(n!) = (n - s_{p}(n)) / (p - 1)$. Thus,
 			\[
-				\xi(n!) \approx n \left( \frac{1}{p-1}- \frac{\nu_{p}(b)}{(q-1)\nu_{q}(b)}
-				\right)
+				\nu_{p}(n!) = \frac{n - s_{p}(n)}{p - 1}.
 			\]
-			whenever $(p-1) \nu_{p}(b) \ne (q-1) \nu_{q}(b)$, since $s_{p}(n) + s_{q}(n) \ll
-			n$. 
-			
-			Therefore, $\lim_{n\to\infty}c_{b}(n!) = \infty$ for any $b$ with distinct
-			factors $p$ and $q$ satisfying
+			Since $s_{p}(n)/n \to 0$ and $s_{q}(n)/n \to 0$ as $n \to \infty$,
 			\[
-				(p-1) \nu_{p}(b) > (q-1) \nu_{q}(b).
+				\xi(n!) = n \left( \frac{1}{p-1}- \frac{\nu_{p}(b)}{(q-1)\nu_{q}(b)}
+				+ o(1) \right) = \Theta(n).
 			\]
-			In particular, $\lim_{n\to\infty}c_{10}(n!) = \infty$.
+			Therefore, by Theorem \ref{phi-lower-bound},
+			\[
+				c_b(n!) > C \log n
+			\]
+			for some $C > 0$ depending only on $b$.
+		\end{proof}
 
-		\subsection*{Cumulative LCMs}
+		\begin{theorem}
+			Let $\Lambda_n = \lcm(1, 2, \ldots, n)$, and let $b \ge 2$ be an integer
+			that is not a power of a prime. Then $c_b(\Lambda_n) > C \log \log n$
+			for some $C > 0$ depending only on $b$. In particular, $c_b(\Lambda_n) \to \infty$
+			as $n \to \infty$.
+		\end{theorem}
 
-			Let $\Lambda_{n} = \lcm(1, 2, \ldots, n)$.
-			This is sequence \href{https://oeis.org/A003418}{A003418} in the OEIS. 
-			It is easy to see that $\nu_{p}(\Lambda_{n}) = \lfloor \log_{p}(n) \rfloor$. 
+		\begin{proof}
+			Let $p$ and $q$ be two distinct divisors of $b$.
+			It is well known \cite[p. 62]{andrica2020} that $\nu_{p}(\Lambda_{n}) = \lfloor \log_{p}(n) \rfloor$.
 			Thus,
 			\[
 				\xi(\Lambda_{n}) = \lfloor \log_{p} n\rfloor - \lfloor \log_{q} n\rfloor
-				\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)}\approx \log n \cdot \left( \frac{1}{\log
-				p}- \frac{1}{\log q}\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)}\right).
+				\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)} = \log n \cdot \left( \frac{1}{\log
+				p}- \frac{1}{\log q}\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)} + o(1)\right).
 			\]
 
-			This quantity is nonzero, since $\log(p)/\log(q)$ is irrational;
-			and we may assume that it is positive, else we can switch $p$ and $q$. Therefore,
-			$\lim_{n\to\infty}\xi(\Lambda_{n}) = \infty$, hence $\lim_{n
-			\to \infty}c_{b}(\Lambda_{n}) = \infty$ for every base $b$ that is not a prime
-			power.
+			Since $\log(p)/\log(q)$ is irrational,
+			\[
+				\frac{1}{\log p}- \frac{1}{\log q}\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)} \ne 0,
+			\]
+			and we may assume without loss of generality that it is positive. 
 
-		These arguments imply lower bounds of the form $c_{b}(n!) > C \log n$
-		and $c_b(\Lambda_n) > C \log \log n$, with certain restrictions on $b$.
-		However, Sanna\cite{sanna2015} proved that 
+			Therefore,
+			\[
+			   \xi(\Lambda_n) = \Theta(\log n),
+			\]
+			so by Theorem \ref{phi-lower-bound},
+			\[
+				c_b(\Lambda_n) > C \log \log n
+			\]
+			for some $C > 0$ depending only on $b$.
+
+		\end{proof}
+
+		Stronger bounds are known.
+		In 2015, Sanna\cite{sanna2015} proved that 
 		\[
 			s_{b}(n!) > C \log n \log \log \log n
 		\]
 		for every integer $n > e^{e}$ and every $b \ge 2$, where $C$ is a constant 
 		depending only on $b$,
-		and he established the same inequality for $s_{b}(\Lambda_n)$.
+		and they established the same inequality for $s_{b}(\Lambda_n)$.
 
 	\section{Digital sums of powers: the general case}
+		\label{general-case}
 
 		In this final section, we will prove that the number of nonzero digits in the base-$b$
-		expansion of $a^n$ increases to infinity with $n$, provided that $\log(b)/\log(a)$
-		is irrational. This result has been proven before \cite{senge-straus1973,stewart1980},
-		but our exposition should be accessible to a wider audience.
+		expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(b)/\log(a)$
+		is irrational. This result appears in earlier work of Senge–Straus \cite{senge-straus1973} 
+		and Stewart \cite{stewart1980}, but we present an argument that we hope is more accessible.
 
-		The condition is necessary, because if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
-		$a^{ns} = b^{nr}$ for all $n$, so $a^{ns}$ has only one nonzero digit in its base-$b$
-		expansion.
+		The irrationality condition is necessary. Indeed, if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
+		\[
+			a^{ns} = b^{nr}
+		\]
+		for every integer $n$, so $a^{ns}$ has only one nonzero digit in base $b$.
 
-		Our proof relies on a deep result in transcendental number theory, which will not be proved here.
+		Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible 
+		integer polynomial $P$ with positive leading coefficient and coprime coefficients.
+		The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height} 
+		of $\alpha$ is the maximum of the absolute values of the cofficients of $P$. 
+		A rational integer has degree $1$ and height equal to its absolute value.
+
+
+		Our proof relies on a version of Baker's theorem on linear forms in logarithms, 
+		which we use as a black box.
 
 		\begin{theorem} \cite[p. 23]{baker1975}
 			Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
 			at most $d$. Suppose that $\alpha_1, \ldots, \alpha_{n-1}$ and $\alpha_n$
-			have heights at most $A' \ge 4$ and $A \ge 4$ respectively. Let $\beta_1, \ldots, \beta_n$
-			be rational integers with heights (absolute values) at most $B \ge 2$.
-			If $\Lambda = \beta_1 \log \alpha_1 + \cdots + \beta_n \alpha_n \ne 0$,
+			have heights at most $A' \ge 4$ and $A \ge 4$ respectively. 
+			Let $\beta_1, \ldots, \beta_n$ be integers of absolute value at most $B \ge 2$.
+			If
+			\[
+				\Lambda = \beta_1 \log \alpha_1 + \cdots + \beta_n \alpha_n \ne 0,
+			\]
 			there exists $C > 1$, depending only on $A$, $A'$, $B$, $n$, and $d$,
-			such that $|\Lambda| > C^{-\log A \log B}$.
+			such that 
+			\[
+				|\Lambda| > C^{-\log A \log B}.
+			\]
 			\label{baker}
 		\end{theorem}
 
-		Recall that a nonzero algebraic number $\alpha$ is a root of an irreducible polynomial $P$
-		with integer coefficients. We may assume that the greatest common divisor of the coefficients
-		of $P$ is 1, and the leading coefficient is positive. These requirements uniquely determine $P$.
-		The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height} of $\alpha$
-		is the maximum of the absolute values of the cofficients of $P$. For a rational integer, the degree
-		is $1$ and the height is the absolute value.
+		Baker's theorem gives effective lower bounds on linear forms in logarithms
+		of algebraic numbers. In our context, it guarantees that the expression in
+		Equation \ref{linear-form} (below) cannot be too small, which limits how well powers of $a$
+		can be approximated by powers of $b$.
 
-		% Let $a, b \ge 2$ be integers. If $\log(a)/\log(b) = r/s \in \mathbb{Q}$,
-		% then the sequences $(s_b(a^n))_{n\ge1}$ and $(c_b(a^n))_{n\ge1}$ are periodic,
-		% since $a^s = b^r$. So we will assume for the remainder of this section that
-		% $\log(a)/\log(b)$ is irrational.
-
-		We will need the following lemma, in case some power of $a$ is divisible by $b$.
+		The next lemma deals with the possibility that some power of $a$ might be divisible by $b$.
+		
 		\begin{lemma}
-			Let $a, b \ge 2$ be integers such that $\log(a)/\log(b)$ is irrational.
-			Then there exists a constant $C > 0$ so that if $a^n = b^r m$ and $b \nmid m$
-			then $\log m > Cn$.
+			Let $a, b \ge 2$ be integers with $\log(a)/\log(b)$ irrational.
+			Then there exists $C$ and $C'$, depending only on $a$ and $b$, 
+			such that whenever
+			\[
+			 	a^n = b^r u \qquad \text{with } b \nmid u,
+			\]
+			we have
+			\[
+				C n \le \log u \le C' n.
+			\]
 			\label{lemma}
 		\end{lemma}
 
 		\begin{proof}
-			If $\log(a)/\log(b)$ is irrational then there exist primes $p, q$ so that
-			$\nu_p(a) \nu_q(b) > \nu_q(a) \nu_p(b)$. Consequently, $\xi(a) > 0$, where
-			$\xi = \xi_{b,p,q}$ is defined as in Section 3.
+			Since $\log(a)/\log(b)$ is irrational, we can choose primes $p,q$ such that
+			\[
+				\nu_p(a) \nu_q(b) > \nu_q(a) \nu_p(b).
+			\]
+			Hence $\xi(a)>0$ for the function $\xi=\xi_{b,p,q}$ defined in Section 3.
 
-			Since $\nu_p(m) \ge \xi(m) = \xi(a^n) = n \xi(a)$, it follows that
-			$m$ is divisible by $p^{\lceil n \xi(a)\rceil}$, 
-			so $\log m > Cn$ where $C = \xi(a) \log p > 0$.
+			Because $\nu_p(u) \ge \xi(u) = \xi(a^n) = n \xi(a)$, the integer $u$ is 
+			divisible by $p^{\lceil n\xi(a)\rceil}$. Therefore
+			\[
+				\log u \ge Cn, \qquad C = \xi(a) \log p > 0.
+			\]
+
+			On the other hand, $\log u \le C' n$ for $C' = \log a$, since $u \le a^n$.
 		\end{proof}
 
-		At last, we can prove our main result.
+		We now prove the main theorem.
 
 		\begin{theorem} 
 			Let $a, b \ge 2$ be integers, and suppose that $\log(a)/\log(b)$ is irrational.
-			Then $c_b(a^n)$ increases to infinity with $n$.
+			Then for all sufficiently large $n$,
+			\[
+				c_b(a^n) > \frac{\log n}{\log \log n + C}
+			\]
+			for some $C > 0$ depending only on $a$ and $b$.
+			In particular,
+			$c_b(a^n) \to \infty$.
 		\end{theorem}
 
 		\begin{proof}
 			Let
 			\begin{equation*}
-				a^n = b^m (d_i b^{-m(1)} + \cdots + d_r b^{-m(r)}),
+				a^n = b^m \left(d_i b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
 			\end{equation*}
-			where $m = \lfloor \log_b a \rfloor$, $r = c_b(a^n)$, $d_i \in \{1, \ldots, b-1\}$,
-			and $1 = m(1) < \cdots < m(r) \le m$. Assume that $r \ge 2$.
+			where $m = \lfloor \log_b a \rfloor$, $k = c_b(a^n)$, 
+			$d_i \in \{1, \ldots, b-1\}$,
+			and
+			\[
+				1 = m(1) < \cdots < m(k) \le m.
+			\]
+			That is, $d_1, \ldots, d_k$ are the nonzero digits of $a^n$ in base $b$,
+			and $m(1), \ldots, m(k)$ are their positions, counting from
+			the left.
+			Assume that $k \ge 2$.
 
-			Choose $i \in \{1, \ldots, r-1\}$. We seek an upper bound on $m(i+1)/m(i)$,
-			which will imply an upper bound on $n$.
+			Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m(i+1)/m(i)$, 
+			which will ultimately bound $n$.
 
-			Let $q = b^{m(i)} (d_1 b^{-m(1)} + \cdots + d_i b^{-m(i)})$ and
-			$r = b^m (d_{i+1} b^{-m(i+1)} + \cdots d_r b^{-m(r)})$, so that
-			$a^n = b^{m - m(i)} q + r$. 
+			Define
+			\begin{align*}
+				q &= b^{m(i)} (d_1 b^{-m(1)} + \cdots + d_i b^{-m(i)}), \\
+				r &= b^m (d_{i+1} b^{-m(i+1)} + \cdots + d_k b^{-m(k)}),
+			\end{align*}
+			so that
+			\[
+				a^n = b^{m - m(i)} q + r.
+			\]
 
-			% Let $q = \lfloor b^{m-m_i} a^n \rfloor$ and $r = a^n \bmod b^{m-m_i}$, so that
-			% $a^n = b^{m-m_i} q + r$.
-
-
-			Observe that the following inequalities hold:
+			From the base-$b$ expansion we obtain the bounds
 			\begin{align*}
 			    b^{m-1} &< a^n < b^m, \\
                 b^{m(i)-1} &< q < b^{m(i)}, \\
 				b^{m-m(i+1)} &< r < b^{m-m(i+1)+1}.
 			\end{align*}
 
-			By combining these inequalities, we find that
+			These imply the approximation
 			\begin{equation}
-				-\log(a^{-n} r) / \log(q) \approx m(i+1) / m(i).
+				\frac{-\log(a^{-n} r)}{\log(q)} = \frac{m(i+1)}{m(i)} + O(1).
 				\label{estimate-1}
 			\end{equation}
 
-			Let $\Lambda = -n \log a + (m - m(i)) \log b + \log q$.
-			Then $|\Lambda| = -\log(1 - a^{-n} r) \approx a^{-n} r$.
-			By Theorem \ref{baker}, $|\Lambda| > C^{-\log n \log q}$ for some $C > 1$
-			depending only on $a$ and $b$. Therefore, $a^{-n} r > C^{-\log n \log q}$,
-			so
+			Now set
 			\begin{equation}
-				-\log(a^{-n} r) / \log(q) < \log n + C.
+			   \Lambda = \log(a^{-n} b^{m - m(i)} q) = -n \log a + (m - m(i)) \log b + \log q.
+			   \label{linear-form}
+			\end{equation}
+			Then 
+			\[
+				|\Lambda| = -\log(1 - a^{-n} r) < 2 a^{-n} r.
+			\]
+			By Theorem \ref{baker}, 
+			\[
+				|\Lambda| > C^{-\log q \log n}
+			\]
+			for some $C>1$ depending only on $a$ and $b$. Thus, 
+			\[
+				a^{-n} r > C^{-\log q \log n},
+			\]
+			and hence, for $n$ sufficiently large,
+			\begin{equation}
+				\frac{-\log(a^{-n} r)}{\log(q)} < C \log n
 				\label{estimate-2}
 			\end{equation}
+			for some $C > 0$ depending only on $a$ and $b$.
 
-			Since $\log m_r = \sum_{i=1}^{r-1} \log(m(i+1)/m(i))$, 
-			Equations \ref{estimate-1} and \ref{estimate-2} imply that
+			Combining \ref{estimate-1} and \ref{estimate-2} gives
 			\begin{equation}
-			   m(r) < (r - 1) (\log \log n + C).
+				\frac{m(i+1)}{m(i)} < C \log n.
+				\label{m-ratio}
+			\end{equation}
+
+			Summing the logarithms of these ratios,
+			\[
+				\log m(k) = \sum_{i=1}^{k-1} \log \left(\frac{m(i+1)}{m(i)}\right)		          
+			\]
+			which yields
+			\begin{equation}
+			   \log m(k) < (k - 1) (\log \log n + C).
 			   \label{estimate-3}
 			\end{equation}
 
-			But $m(r) = \Theta(\log n)$ by Lemma \ref{lemma}, hence
+			By Lemma~\ref{lemma}, $\log m(k) = \log n + O(1)$, 
+			so \eqref{estimate-3} implies			
 			\[
-			r > \frac{\log n}{\log \log n + C}
+				k > \frac{\log n}{\log \log n + C}
 			\]
-			for some $C > 0$ depending only on $a$ and $b$, when $n$ is sufficiently large.
-			Since $r = c_b(a^n)$, this confirms that $\lim_{n\to\infty} c_b(a^n) = \infty$.
-			
+			for all sufficiently large $n$, as required.		
 		\end{proof}
-
-
-
 	
-	
-		% In this section, we will prove that $\lim_{n\to\infty} c_{10}(3^n) = \infty$.
-		% This proof is decidedly \emph{not} elementary; it requires a deep result
-		% from transcendental number theory.
-
-		% Our initial proof that $\lim_{n\to\infty} c_{10}(2^n) = \infty$
-		% was based on the idea that the decimal expansion of $2^n$ cannot contain
-		% long strings of consecutive zeros in certain locations.
-		% But this is not true for $3^n$.
-		% In fact, the decimal expansion of $3^n$ can end in $000\ldots1$ for
-		% any number of zeros, since $3^{4\cdot 10^k} \equiv 1 \pmod{10^{k+1}}$
-		% by Euler's totient theorem. So a different approach is required.
-
-		% We need to show that $3^n$ 
-
-	
+	{\bf Exercise.} Prove that the number of nonzero decimal digits in the $n$th
+	Fibonacci number tends to infinity as $n \to \infty$.
 	\printbibliography
 
 \end{document}
