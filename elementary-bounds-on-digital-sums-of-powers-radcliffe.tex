@@ -283,9 +283,10 @@
 			for all $k \ge 2$.
 			
 			Let $n$ be a positive integer, and let $k = \lceil \log_r \xi(a^n) \rceil$,
-			so that $r^{k-1} < \xi(a^n) \le r^k$.
-			Then $\xi(a^n) > \varepsilon(k)$, so Theorem \ref{phi-lower-bound} implies that $c_p(a^n) > k$.
-			But $\xi(a^n) = n \xi(a)$, which implies that $k = \Theta(\log n)$, hence
+			so that
+				$r^{k-1} < \xi(a^n) \le r^k$.
+			Then $\xi(a^n) > \varepsilon(k)$, so Theorem \ref{phi-lower-bound} implies that $c_p(a^n) \ge k$.
+			But $\xi(a^n) = n \xi(a)$, hence $k = \Theta(\log n)$, and
 			the conclusion follows.
 		\end{proof}
 
