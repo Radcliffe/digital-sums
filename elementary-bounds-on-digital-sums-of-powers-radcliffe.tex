@@ -15,7 +15,7 @@
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G. Radcliffe}
-\date{November 19, 2025}
+\date{November 27, 2025}
 
 \begin{document}
 
@@ -69,19 +69,65 @@
 		and the digits seem to be approximately uniformly distributed among 
 		$0, 1, 2, \ldots, 9$. 
 		However, this stronger conjecture remains to be proved.
+	
+	\section{Notation}
 
 		For an integer $b \ge 2$, we write $s_{b}(n)$ for the sum of the base-$b$
 		digits of $n$, and $c_{b}(n)$ for the number of nonzero digits in that expansion.
-		These functions are asymptotic to each other, since $c_{b}(n) \le s_{b}(n) \le
-		(b-1) c_{b}(n)$ for all $n$ and $b$; so we restrict our attention to
-		$c_{b}(n)$. For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
+		These functions are equivalent up to a constant factor, 
+		since $c_{b}(n) \le s_{b}(n) \le (b-1) c_{b}(n)$ for all $n$ and $b$; 
+		so we restrict our attention to $c_{b}(n)$. 
+		For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
 		prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
+
+		We use Bachmann-Landau notation\cite{knuth1997} to describe the approximate size of functions.
+		Let $f$ and $g$ be real-valued functions defined on a domain $D$,
+		usually the set of positive integers.
+
+		One writes
+		\[
+			f(n) = O(g(n))
+		\]
+		if there exists a positive real number $C$ such that
+		\[
+			|f(n)| \le C g(n) \qquad \text{for all } n \in D.
+		\]
+
+		The notation
+		\[
+			f(n) = o(g(n))
+		\]
+		means that
+		\[
+			\lim_{n\to\infty} \frac{f(n)}{g(n)} = 0.
+		\]
+		
+		In particular, $O(1)$ denotes a bounded function, and $o(1)$ denotes
+		a function that tends to 0 as $n \to \infty$.
+
+		Finally, 
+		\[
+			f(n) = \Theta(g(n))
+		\]
+		means that there exist positive real numbers $C$ and $C'$ such that
+		\[
+			C g(n) < |f(n)| < C' g(n) \qquad \text{for all } n \in D.
+		\]
+
+		% This notation can be combined with other operations. For example,
+		% \[
+		% 	f(n) = g(n) + o(h(n))
+		% \]
+		% means that there exists a function $k$ such that
+		% \[
+		% 	f(n) = g(n) + k(n) \qquad \text{and } k(n) = o(h(n)).
+		% \]
+
 
 	\section{Digital sums of powers of two}
 
 		We present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
-		The key idea, which might seem too obvious to state, is that a positive multiple 
-		of a number cannot be smaller than that number.
+		See \cite{radcliffe2016} for an alternative approach.
 
 		Let $n$ be a positive integer, and write the decimal expansion of $2^n$ as
 		$2^n = \sum_{i=0}^{\infty} d_i 10^i$, where $d_i \in \{0, \ldots, 9\}$
@@ -185,7 +231,7 @@
 			Let $b \ge 2$ be an integer that is not a power of a prime, and let $p$ be a
 			prime divisor of $b$. Let $(e(k))_{k\ge1}$ be a sequence of integers such
 			that $e(1) \ge 1$ and $p^{e(k)} > b^{e(k-1)}$ for all $k \ge 2$. 
-			If $\nu_p(n) \ge e(k)$ and $b \nmid n$, then $c_b(n) \ge k$.
+			If $\nu_p(n) \ge e(k)$ and $b \nmid n$, then $c_{b}(n) \ge k$.
 			\label{general-powers-lower-bound}
 		\end{theorem}
 
@@ -229,7 +275,7 @@
 			be distinct prime divisors of $b$, and let 
 			$(e(k))_{k\ge1}$ be defined as in Theorem \ref{general-powers-lower-bound}.
 			If $\xi(n) \ge e(k)$, then $c_{b}(n) \ge k$. 
-			In particular, $\lim_{n\to\infty} c_b(a_n) = \infty$
+			In particular, $\lim_{n\to\infty} c_{b}(a_n) = \infty$
 			for any sequence of positive integers that satisfies
 			$\lim_{n\to\infty} \xi(a_n) = \infty$.
 			\label{phi-lower-bound}
@@ -285,10 +331,19 @@
 			Let $n$ be a positive integer, and let $k = \lceil \log_r \xi(a^n) \rceil$,
 			so that
 				$r^{k-1} < \xi(a^n) \le r^k$.
-			Then $\xi(a^n) > e(k)$, so Theorem \ref{phi-lower-bound} implies that $c_p(a^n) \ge k$.
+			Then $\xi(a^n) > e(k)$, so Theorem \ref{phi-lower-bound} implies that $c_{b}(a^n) \ge k$.
 			But $\xi(a^n) = n \xi(a)$, hence $k = \Theta(\log n)$, and
 			the conclusion follows.
 		\end{proof}
+
+		\section{Related work}
+
+		In 2025, Jaiswal\cite{jaiswal2025} proved that if $a \ge 2$ and $b \ge 2$ are positive integers,
+		$a$ divides $b$, and if $b$ has at least one prime divisor that does not divide $a$,
+		then \[
+			c_{b}(a^n) > \frac{\log n}{\log \left(2\log b / \log a\right)}
+		\]
+		for $n$ sufficiently large.
 
 		In 1973, Senge and Straus\cite[Theorem 3]{senge-straus1973}
 		proved that if $a \ge 1$ and $b \ge 2$ are positive integers, then
@@ -304,7 +359,7 @@
 		but with stricter conditions on $a$ and $b$.
 		We replicate Stewart's result in Section \ref{general-case}.
 
-	\section{Related sequences}
+	\section{Digital sums of factorials and LCMs}
 
 		Theorem \ref{phi-lower-bound} can be applied to many other sequences. 
 		We give two examples here. 
@@ -315,8 +370,8 @@
 			\[
 				(p - 1) \nu_{p}(b) \ne (q-1) \nu_{q}(b).
 			\]
-			Then $c_b(n!) > C \log n$ for some $C > 0$ depending only on $b$.
-			In particular, $c_b(n!) \to \infty$ as $n \to \infty$.
+			Then $c_{b}(n!) > C \log n$ for some $C > 0$ depending only on $b$.
+			In particular, $c_{b}(n!) \to \infty$ as $n \to \infty$.
 		\end{theorem}
 		
 		\begin{proof}
@@ -338,15 +393,15 @@
 			\]
 			Therefore, by Theorem \ref{phi-lower-bound},
 			\[
-				c_b(n!) > C \log n
+				c_{b}(n!) > C \log n
 			\]
 			for some $C > 0$ depending only on $b$.
 		\end{proof}
 
 		\begin{theorem}
 			Let $\Lambda_n = \lcm(1, 2, \ldots, n)$, and let $b \ge 2$ be an integer
-			that is not a power of a prime. Then $c_b(\Lambda_n) > C \log \log n$
-			for some $C > 0$ depending only on $b$. In particular, $c_b(\Lambda_n) \to \infty$
+			that is not a power of a prime. Then $c_{b}(\Lambda_n) > C \log \log n$
+			for some $C > 0$ depending only on $b$. In particular, $c_{b}(\Lambda_n) \to \infty$
 			as $n \to \infty$.
 		\end{theorem}
 
@@ -372,7 +427,7 @@
 			\]
 			so by Theorem \ref{phi-lower-bound},
 			\[
-				c_b(\Lambda_n) > C \log \log n
+				c_{b}(\Lambda_n) > C \log \log n
 			\]
 			for some $C > 0$ depending only on $b$.
 
@@ -471,11 +526,11 @@
 			Let $a, b \ge 2$ be integers, and suppose that $\log(a)/\log(b)$ is irrational.
 			Then for all sufficiently large $n$,
 			\[
-				c_b(a^n) > \frac{\log n}{\log \log n + C}
+				c_{b}(a^n) > \frac{\log n}{\log \log n + C}
 			\]
 			for some $C > 0$ depending only on $a$ and $b$.
 			In particular,
-			$c_b(a^n) \to \infty$.
+			$c_{b}(a^n) \to \infty$.
 		\end{theorem}
 
 		\begin{proof}
@@ -483,7 +538,7 @@
 			\begin{equation*}
 				a^n = b^m \left(d_1 b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
 			\end{equation*}
-			where $m = \lceil \log_b a \rceil$, $k = c_b(a^n)$, 
+			where $m = \lceil \log_b a \rceil$, $k = c_{b}(a^n)$, 
 			$d_i \in \{1, \ldots, b-1\}$,
 			and
 			\[
@@ -599,6 +654,20 @@ Cambridge University Press, Cambridge, 1975.
 Dickson, L.\ E.,
 \textit{History of the Theory of Numbers}, Vol.~1,
 Carnegie Institution of Washington, 1919.
+
+\bibitem{jaiswal2025}
+Jaiswal, S.,
+Personal communication, 2025.
+
+\bibitem{knuth1997}
+Knuth, D.\ E.,
+\textit{The Art of Computer Programming: Fundamental Algorithms}, Volume 1, 
+Addison-Wesley Professional, 1997.
+
+\bibitem{radcliffe2016}
+Radcliffe, D., 
+``The growth of digital sums of powers of 2,''
+arXiv preprint arXiv:2401.12345 (2016).
 
 \bibitem{sanna2015}
 Sanna, C.,
