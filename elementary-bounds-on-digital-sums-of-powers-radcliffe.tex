@@ -540,15 +540,15 @@
 			\begin{equation*}
 				a^n = b^m \left(d_1 b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
 			\end{equation*}
-			where $m = \lceil \log_b a \rceil$, $k = c_{b}(a^n)$, 
+			where $m = \lceil \log_b a^n \rceil$, $k = c_{b}(a^n)$, 
 			$d_i \in \{1, \ldots, b-1\}$,
 			and
 			\[
 				1 = m(1) < \cdots < m(k) \le m.
 			\]
 			That is, $d_1, \ldots, d_k$ are the nonzero digits of $a^n$ in base $b$,
-			and $m(1), \ldots, m(k)$ are their positions, counting from
-			the left.
+			and $m(1), \ldots, m(k)$ are their positions when the digits are numbered 
+			from left (most significant) to right (least significant).
 			Assume that $k \ge 2$.
 
 			Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m(i+1)/m(i)$, 
