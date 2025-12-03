@@ -10,12 +10,11 @@
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}{Corollary}
 \newtheorem{lemma}{Lemma}
-\newtheorem{exercise}{Exercise}
 \DeclareMathOperator{\lcm}{lcm}
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G. Radcliffe}
-\date{December 1, 2025}
+\date{December 3, 2025}
 
 \begin{document}
 
@@ -34,7 +33,11 @@
 
 	\section{Introduction}
 
-		This article was inspired by the following problem, which was posed and solved
+		This expository article establishes lower bounds on digital sums
+		of powers, multiples of powers, factorials, and the least common
+		multiple of $\{1,\ldots, n\}$, using only elementary number theory.
+
+		We were inspired by the following problem, which was posed and solved
 		by Wac{\l}aw Sierpi{\'n}ski\cite[Problem 209]{sierpinski1970}:
 		\begin{quote}
 			\emph{Prove that the sum of digits of the number $2^{n}$ (in decimal system)
@@ -77,6 +80,13 @@
 		These functions are equivalent up to a constant factor, 
 		since $c_{b}(n) \le s_{b}(n) \le (b-1) c_{b}(n)$ for all $n$ and $b$; 
 		so we restrict our attention to $c_{b}(n)$. 
+
+		The function $s_b$ is \emph{subadditive}: $s_b(m+n) \le s_b(m) + s_b(n)$
+		for all positive integers $m$ and $n$. Equality
+		holds if no carries occur in the digitwise addition of $m$ and $n$.
+		Otherwise, each carry reduces the digital sum by $(b-1)$.
+		The function $c_b$ is likewise subadditive.
+
 		For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
 		prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
 
@@ -113,16 +123,6 @@
 		\[
 			C g(n) < |f(n)| < C' g(n) \qquad \text{for all } n \in D.
 		\]
-
-		% This notation can be combined with other operations. For example,
-		% \[
-		% 	f(n) = g(n) + o(h(n))
-		% \]
-		% means that there exists a function $k$ such that
-		% \[
-		% 	f(n) = g(n) + k(n) \qquad \text{and } k(n) = o(h(n)).
-		% \]
-
 
 	\section{Digital sums of powers of two}
 
@@ -216,11 +216,6 @@
 			Therefore,
 			$c_{10}(a^n) \ge k \ge \log_4(n)$, by Theorem \ref{base-ten-lower-bound}.
 		\end{proof}
-
-		\begin{exercise}
-			Show that every power of 3 has a multiple $m$, not divisible by $10$,
-			such that $c_{10}(m) = 2$.
-		\end{exercise}
 
 	\section{Generalizing to other bases}
 
@@ -443,6 +438,56 @@
 		depending only on $b$,
 		and they established the same lower bound for $s_{b}(\Lambda_n)$.
 
+	\section{Another elementary bound on digital sums}
+
+	We present another elementary bound on digital sums, due to
+	Stolarsky\cite{stolarsky1980} for base two, and generalized to
+	all bases by Balog and Dartyge\cite{balog2012}.
+
+	\begin{theorem}
+		Let $r \ge 1$ and $b \ge 2$ be integers.
+		If $m$ is divisible by $b^r - 1$,
+		then $s_b(m) \ge (b-1)r$.
+	\end{theorem}
+
+	\begin{proof}
+		Write the base-$b$ expansion of $m$ as a concatenation of $r$-digit blocks,
+		so that
+		\[
+			m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad (0 \le B_i < b^r).
+		\]
+
+		Define the \emph{block-sum} operator $G$ by
+		\[
+			G(m) = \sum_{i=0}^{k-1} B_i.
+		\]
+		Observe that
+		$G(m) \equiv m \pmod{b^r - 1}$, since $b^r \equiv 1 \pmod{b^r - 1}$.
+		Also, $G(m) < m$ for $m \ge b^r$, and $G(m) = m$ for $0 \le m < b^r$.
+
+		Iterate $G$ on $m$: define $m_0 = m$ and $m_{t+1} = G(m_t)$.
+		By the observations above, $(m_t)$ is a sequence of
+		positive multiples of $b^r - 1$, which is strictly decreasing
+		while its terms exceed $b^r - 1$. Therefore, the sequence must
+		eventually reach $b^r - 1$, which is the unique positive multiple of $b^r - 1$
+		that is less than $b^r$.
+
+		Since $s_b$ is subadditive,
+		\[
+			s_b(G(m)) \le \sum_{i=0}^{k-1} s_b(B_i) = s_b(m).
+		\]
+
+		Therefore,
+		\[
+			s_b(m) \ge s_b(b^r - 1) = (b-1)r.
+		\]
+	\end{proof}
+
+	This result implies lower bounds of the form $s_b(n!) > C \log n$
+	and $s_b(\Lambda_n) > C \log n$ for some $C > 0$, depending only on $b$.
+	For if $n \ge b^r - 1$, then $n!$ and $\Lambda_n$ are divisible by $b^r - 1$,
+	hence $s_b(n!) \ge (b-1)r$ and $s_b(\Lambda_n) \ge (b-1)r$.
+
 	\section{Digital sums of powers: the general case}
 		\label{general-case}
 
@@ -632,11 +677,6 @@
 			\]
 			for all sufficiently large $n$, as required.		
 		\end{proof}
-	
-	\begin{exercise}
-		Prove that the number of nonzero decimal digits in the $n$th
-		Fibonacci number tends to infinity as $n \to \infty$.
-	\end{exercise}
 
 \begin{thebibliography}{99}
 
@@ -646,6 +686,12 @@ Andrica, D., R\u{a}dulescu, S., and {\c{T}}urca{\c{s}}, G.\ C.,
 in \textit{Discrete Mathematics and Applications},
 A.\ M.\ Raigorodskii and M.\ Th.\ Rassias (eds.),
 Springer, Cham, 2020, pp.~57--108.
+
+\bibitem{balog2012}
+Balog, A. and Dartyge, C.,
+``On the sum of the digits of multiples.''
+\textit{Moscow Journal of Combinatorics and Number Theory},
+\textbf{2} (2012), pp. 3--15.
 
 \bibitem{baker1975}
 Baker, A.,
@@ -696,6 +742,10 @@ Stewart, C.\ L.,
 ``On the representation of an integer in two different bases,''
 \textit{J. Reine Angew. Math.} \textbf{319} (1980), pp. 63--72.
 
+\bibitem{stolarsky1980}
+Stolarsky, K.\ B.,
+``Integers whose multiples have anomalous digital frequencies,''
+\textit{Acta Arith} \textbf{38.2} (1980), pp. 117-128.
 \end{thebibliography}
 
 \end{document}
