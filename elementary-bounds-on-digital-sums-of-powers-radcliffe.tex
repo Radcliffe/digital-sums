@@ -331,8 +331,6 @@
 			the conclusion follows.
 		\end{proof}
 
-		\section{Related work}
-
 		In 2025, Jaiswal\cite{jaiswal2025} proved that if $a \ge 2$ and $b \ge 2$ are positive integers,
 		$a$ divides $b$, and if $b$ has at least one prime divisor that does not divide $a$,
 		then \[
@@ -445,7 +443,7 @@
 	all bases by Balog and Dartyge\cite{balog2012}.
 
 	\begin{theorem}
-		Let $r \ge 1$ and $b \ge 2$ be integers.
+		Let $m, r \ge 1$ and $b \ge 2$ be integers.
 		If $m$ is divisible by $b^r - 1$,
 		then $s_b(m) \ge (b-1)r$.
 	\end{theorem}
@@ -454,7 +452,7 @@
 		Write the base-$b$ expansion of $m$ as a concatenation of $r$-digit blocks,
 		so that
 		\[
-			m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad (0 \le B_i < b^r).
+			m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad 0 \le B_i < b^r, \qquad B_{k-1} \ge 1.
 		\]
 
 		Define the \emph{block-sum} operator $G$ by
