@@ -359,7 +359,7 @@
 			the conclusion follows.
 		\end{proof}
 
-		In 2025, S. Jaiswal (personal communication) proved that if $a \ge 2$ and $b \ge 2$ are positive integers,
+		In 2025, S. Jaiswal (personal communication) proved that if $a, b \ge 2$ are integers,
 		$a$ divides $b$, and if $b$ has at least one prime divisor that does not divide $a$,
 		then \[
 			c_{b}(a^n) > \frac{\log n}{\log \left(2\log b\, / \log a\right)}
@@ -557,7 +557,7 @@
 
 		Baker's theorem gives effective lower bounds on linear forms in logarithms
 		of algebraic numbers. In our context, it guarantees that the expression in
-		Equation \ref{linear-form} (below) cannot be too small, which limits how well powers of $a$
+		\eqref{linear-form} (below) cannot be too small, which limits how well powers of $a$
 		can be approximated by powers of $b$.
 
 		The next lemma deals with the possibility that some power of $a$ might be divisible by $b$.
@@ -582,7 +582,7 @@
 			\[
 				\nu_p(a) \nu_q(b) > \nu_q(a) \nu_p(b).
 			\]
-			Hence $\xi(a)>0$ for the function $\xi=\xi_{b,p,q}$ defined in Equation \ref{xi-notation}.
+			Hence $\xi(a)>0$ for the function $\xi=\xi_{b,p,q}$ defined in Equation \eqref{xi-notation}.
 
 			Because $\nu_p(u) \ge \xi(u) = \xi(a^n) = n \xi(a)$, the integer $u$ is 
 			divisible by $p^{\lceil n\xi(a)\rceil}$. Therefore
@@ -608,9 +608,9 @@
 
 		\begin{proof}
 			Let
-			\begin{equation*}
+			\[
 				a^n = b^m \left(d_1 b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
-			\end{equation*}
+			\]
 			where $m = \lceil \log_b a^n \rceil$, $k = c_{b}(a^n)$, 
 			$d_i \in \{1, \ldots, b-1\}$,
 			and
@@ -672,11 +672,11 @@
 			\end{equation}
 			for some $C > 0$ depending only on $a$ and $b$.
 
-			Combining Equations \ref{estimate-1} and \ref{estimate-2} gives
-			\begin{equation}
+			Combining \eqref{estimate-1} and \eqref{estimate-2} gives
+			\[
 				\frac{m(i+1)}{m(i)} < C \log n.
 				\label{m-ratio}
-			\end{equation}
+			\]
 
 			Summing the logarithms of these ratios,
 			\[
@@ -694,10 +694,11 @@
 			\]
 
 			Thus $m(k) = \Theta(\log(u))$, and $\log(u) = \Theta(n)$ by Lemma~\ref{lemma}, so
-			\[
+			\begin{equation}
 				\log m(k) = \log n + O(1).
-			\]
-			Therefore, Equation \eqref{estimate-3} implies that		
+				\label{log-mk}
+			\end{equation}
+			Therefore, \eqref{estimate-3} and \eqref{log-mk} imply that
 			\[
 				k > \frac{\log n}{\log \log n + C}
 			\]
