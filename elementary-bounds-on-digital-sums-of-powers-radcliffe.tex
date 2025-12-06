@@ -3,7 +3,7 @@
 \geometry{letterpaper}
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{tcolorbox}
+\usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{xurl}
 \usepackage{parskip}
@@ -11,19 +11,17 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{lemma}{Lemma}
 \DeclareMathOperator{\lcm}{lcm}
+\setlength{\tabcolsep}{2pt}
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{David G. Radcliffe}
-\date{December 4, 2025}
+\date{December 5, 2025}
 
 \begin{document}
 
 	\begin{abstract}
-		We prove that the sum of the base-$b$ digits of $a^{n}$ grows at least logarithmically in $n$
-		if $\log(d)/\log(b)$ is irrational, where $d$ is the smallest factor of $a$ 
-		such that $\gcd(a/d, b) = 1$.
-		Our approach uses only elementary number theory and applies to a wide class of sequences, 
-		including factorials and the least common multiple of $\{1, \ldots, n\}$.
+		We prove lower bounds on digital sums of powers, multiples of powers, factorials,
+		and the least common multiple of $\{1,\ldots, n\}$, using only elementary number theory.
 		We conclude with an expository proof of the previously known result that
 		the sum of the base-$b$ digits of $a^{n}$ tends to infinity with $n$ if and only if
 		$\log(a)/\log(b)$ is irrational.
@@ -38,7 +36,7 @@
 		multiple of $\{1,\ldots, n\}$, using only elementary number theory.
 
 		We were inspired by the following problem, which was posed and solved
-		by Wac{\l}aw Sierpi{\'n}ski\cite[Problem 209]{sierpinski1970}:
+		by Wac{\l}aw Sierpi{\'n}ski~\cite[Problem 209]{sierpinski1970}:
 		\begin{quote}
 			\emph{Prove that the sum of digits of the number $2^{n}$ (in decimal system)
 			increases to infinity with $n$.}
@@ -71,7 +69,20 @@
 		since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits, 
 		and the digits seem to be approximately uniformly distributed among 
 		$0, 1, 2, \ldots, 9$. 
-		However, this stronger conjecture remains to be proved.
+		However, this stronger conjecture remains to be proved. 
+		See Figure \ref{fig:s10_scatter}.
+
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.8\linewidth]{s10_scatter.png}
+			\caption{Scatter plot of the digital sum of $2^n$ for $n \le 100$ 
+			together with the conjectured linear approximation.}
+			\label{fig:s10_scatter}
+		\end{figure}
+
+		We prove in Section \ref{sec:powers-of-two} that the digital
+		sum of $2^n$ is greater than $\log_4 n$ for all $n \ge 1$.
+		But first, we introduce some notation.
 	
 	\section{Notation}
 
@@ -90,7 +101,7 @@
 		For a prime $p$, $\nu_{p}(n)$ denotes the exponent of $p$ in the
 		prime factorization of $n$. If $p$ does not divide $n$ then $\nu_{p}(n) = 0$.
 
-		We use Bachmann-Landau notation\cite{knuth1997} to describe the approximate size of functions.
+		We use Bachmann-Landau notation~\cite{knuth1997} to describe the approximate size of functions.
 		Let $f$ and $g$ be real-valued functions defined on a domain $D$,
 		usually the set of positive integers.
 
@@ -125,6 +136,7 @@
 		\]
 
 	\section{Digital sums of powers of two}
+		\label{sec:powers-of-two}
 
 		We present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
 		See \cite{radcliffe2016} for an alternative approach.
@@ -151,9 +163,16 @@
 		of digits, each containing at least one nonzero digit, as illustrated in Figure \ref{fig-blocks}.
 		This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
   
-		\begin{figure}[h]
-			$2^{103}$ = \framebox{$101412048018258352$}\framebox{$1197362564$}\framebox{$300$}\framebox{$8$}
-			\caption{Each block contains at least one nonzero digit.}
+		\begin{figure}
+			\begin{tabular}{lcrrrrr}
+				$2^0$     & = &   &                                   &            &     & 1 \\
+				$2^4$     & = &   &                                   &            &   1 & 6 \\
+				$2^{14}$  & = &   &                                   &          1 & 638 & 4 \\
+				$2^{47}$  & = &   &                                 1 & 4073748835 & 532 & 8 \\
+				$2^{157}$ & = & 1 & 826877046663628647754606040895353 & 7745699156 & 787 & 2
+			\end{tabular}
+			\caption{Digits of $2^n$ subdivided into blocks.
+			Each block contains at least one nonzero digit.}
 			\label{fig-blocks}
 		\end{figure}
 
@@ -244,40 +263,8 @@
 		\end{theorem}
 
 		\begin{proof}
-			We argue by induction on $k$. 
-			The case $k=1$ is immediate, since any positive integer
-			has at least one nonzero digit.
-
-			Assume now that $k \ge 2$, and that the statement holds for $k-1$.
-			Let $n$ be a positive integer divisible by $p^{e(k)}$ but not by $b$.
-			Apply the division algorithm to write
-			\[
-				n = b^{e(k-1)} q + r, \qquad 0 \le r < b^{e(k-1)},
-			\]
-			for integers $q$, $r$.
-
-			Because $n \ge p^{e(k)} > b^{e(k-1)}$ by hypothesis,
-			the quotient satisfies $q \ge 1$.
-
-			Next, both $n$ and $b^{e(k-1)} q$ are divisible by $p^{e(k-1)}$,
-			hence their difference
-			\[
-				r = n - b^{e(k-1)} q
-			\]
-			is also divisible by $p^{e(k-1)}$.
-
-			Moreover, $r$ is not divisible by $b$, since $n$ is not divisible by $b$.
-
-			Therefore, $c_{b}(r) \ge k - 1$ by the induction hypothesis.
-
-			Finally, the base-$b$ expansion of $n$ is obtained by concatenating
-			the base-$b$ expansion of $q$ with the (possibly zero-padded)
-			expansion of $r$. Thus,
-			\[
-				c_{b}(n) = c_{b}(q) + c_{b}(r) \ge 1 + (k - 1) = k.
-			\]
-			This completes the proof.
-
+			Follow the proof of Theorem \ref{base-ten-lower-bound}, but replace $2$ with $p$
+			where appropriate, and replace $10$ with $b$.
 		\end{proof}
 
 		It is desirable to relax the condition that $b$ does not divide $n$,
@@ -298,9 +285,6 @@
 			be distinct prime divisors of $b$, and let 
 			$(e(k))_{k\ge1}$ be defined as in Theorem \ref{general-powers-lower-bound}.
 			If $\xi(n) \ge e(k)$, then $c_{b}(n) \ge k$. 
-			In particular, $\lim_{n\to\infty} c_{b}(a_n) = \infty$
-			for any sequence of positive integers that satisfies
-			$\lim_{n\to\infty} \xi(a_n) = \infty$.
 			\label{phi-lower-bound}
 		\end{theorem}
 
@@ -318,7 +302,6 @@
 			such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
 			Then $c_{b}(a^{n}) > C \log n$ for all $n \ge 1$, where $C > 0$ depends
 			only on $a$ and $b$.
-			In particular, $\lim_{n\to\infty}c_{b}(a^{n}) = \infty$.
 			\label{general-digit-sum}
 		\end{theorem}
 
@@ -366,11 +349,11 @@
 		\]
 		for $n$ sufficiently large.
 
-		In 1973, Senge and Straus\cite[Theorem 3]{senge-straus1973}
+		In 1973, Senge and Straus~\cite[Theorem 3]{senge-straus1973}
 		proved that if $a \ge 1$ and $b \ge 2$ are positive integers, then
 		$\lim_{n \to \infty}c_{b}(a^{n}) = \infty$ if and only if
 		$\log(a) / \log(b)$ is irrational. However, they did not demonstrate a lower bound. 
-		In 1980, Stewart\cite[Theorem 2]{stewart1980} proved that
+		In 1980, Stewart~\cite[Theorem 2]{stewart1980} proved that
 		if $\log(a)/\log(b)$ is irrational, then
 		\[
 			c_{b}(a^{n}) > \frac{\log n}{\log \log n + C} - 1
@@ -382,81 +365,60 @@
 
 	\section{Digital sums of factorials and LCMs}
 
-		Theorem \ref{phi-lower-bound} can be applied to many other sequences.
-		We give two examples here: factorials, and the least common multiple
-		of the first $n$ positive integers.
+		In this section, we demonstrate a logarithmic lower bound
+		for digital sums of factorials, and also for the digital sum
+		of $\Lambda_n := \lcm(1, 2, \ldots, n)$.
+
+		We need the following elementary result, which is due to
+		Stolarsky~\cite{stolarsky1980} for base two,
+		and generalized to all bases by Balog and Dartyge~\cite{balog2012}.
 
 		\begin{theorem}
-			Let $b \ge 2$ be an integer. Suppose that $b$ has prime divisors $p$ and $q$
-			such that
-			\[
-				(p - 1) \nu_{p}(b) \ne (q-1) \nu_{q}(b).
-			\]
-			Then $c_{b}(n!) > C \log n$ for some $C > 0$ depending only on $b$.
-			In particular, $c_{b}(n!) \to \infty$ as $n \to \infty$.
-		\end{theorem}
-		
-		\begin{proof}
-			Assume without loss of generality that
-			$(p - 1) \nu_{p}(b) < (q-1) \nu_{q}(b)$.
-			This condition may be rewritten as
-			\[
-				\frac{1}{p-1} - \frac{\nu_p(b)}{(q - 1) \nu_q(b)} > 0.
-			\]
-
-			By Legendre's formula\cite[p. 263]{dickson1919},
-			\[
-				\nu_{p}(n!) = \frac{n - s_{p}(n)}{p - 1}.
-			\]
-			Since $s_{p}(n)/n \to 0$ and $s_{q}(n)/n \to 0$ as $n \to \infty$,
-			\[
-				\xi(n!) = n \left( \frac{1}{p-1}- \frac{\nu_{p}(b)}{(q-1)\nu_{q}(b)}
-				+ o(1) \right) = \Theta(n).
-			\]
-			Therefore, by Theorem \ref{phi-lower-bound},
-			\[
-				c_{b}(n!) > C \log n
-			\]
-			for some $C > 0$ depending only on $b$.
-		\end{proof}
-
-		\begin{theorem}
-			Let $\Lambda_n = \lcm(1, 2, \ldots, n)$, and let $b \ge 2$ be an integer
-			that is not a power of a prime. Then $c_{b}(\Lambda_n) > C \log \log n$
-			for some $C > 0$ depending only on $b$. In particular, $c_{b}(\Lambda_n) \to \infty$
-			as $n \to \infty$.
+			Let $m, r \ge 1$ and $b \ge 2$ be integers.
+			If $m$ is divisible by $b^r - 1$,
+			then $s_b(m) \ge (b-1)r$.
 		\end{theorem}
 
 		\begin{proof}
-			Let $p$ and $q$ be two distinct divisors of $b$.
-			It is well known \cite[p. 62]{andrica2020} that $\nu_{p}(\Lambda_{n}) = \lfloor \log_{p}(n) \rfloor$.
-			Thus,
+			Write the base-$b$ expansion of $m$ as a concatenation of $r$-digit blocks,
+			so that
 			\[
-				\xi(\Lambda_{n}) = \lfloor \log_{p} n\rfloor - \lfloor \log_{q} n\rfloor
-				\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)} = \log n \cdot \left( \frac{1}{\log
-				p}- \frac{1}{\log q}\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)}\right) + O(1).
+				m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad 0 \le B_i < b^r, \qquad B_{k-1} \ge 1.
 			\]
 
-			Since $\log(p)/\log(q)$ is irrational,
+			Define the \emph{block-sum} operator $G$ by
 			\[
-				\frac{1}{\log p}- \frac{1}{\log q}\cdot \frac{\nu_{p}(b)}{\nu_{q}(b)} \ne 0,
+				G(m) = \sum_{i=0}^{k-1} B_i.
 			\]
-			and we may assume without loss of generality that it is positive. 
+			Observe that
+			$G(m) \equiv m \pmod{b^r - 1}$, since $b^r \equiv 1 \pmod{b^r - 1}$.
+			Also, $G(m) < m$ for $m \ge b^r$, and $G(m) = m$ for $0 \le m < b^r$.
+
+			Iterate $G$ on $m$: define $m_0 = m$ and $m_{t+1} = G(m_t)$.
+			By the observations above, $(m_t)$ is a sequence of
+			positive multiples of $b^r - 1$, which is strictly decreasing
+			while its terms exceed $b^r - 1$. Therefore, the sequence must
+			eventually reach $b^r - 1$, which is the unique positive multiple of $b^r - 1$
+			that is less than $b^r$.
+
+			Since $s_b$ is subadditive,
+			\[
+				s_b(G(m)) \le \sum_{i=0}^{k-1} s_b(B_i) = s_b(m).
+			\]
 
 			Therefore,
 			\[
-			   \xi(\Lambda_n) = \Theta(\log n),
+				s_b(m) \ge s_b(b^r - 1) = (b-1)r.
 			\]
-			so by Theorem \ref{phi-lower-bound},
-			\[
-				c_{b}(\Lambda_n) > C \log \log n
-			\]
-			for some $C > 0$ depending only on $b$.
-
 		\end{proof}
 
+		This result implies lower bounds of the form $s_b(n!) > C \log n$
+		and $s_b(\Lambda_n) > C \log n$ for some $C > 0$, depending only on $b$.
+		For if $n \ge b^r - 1$, then $n!$ and $\Lambda_n$ are divisible by $b^r - 1$,
+		hence $s_b(n!) \ge (b-1)r$ and $s_b(\Lambda_n) \ge (b-1)r$.
+
 		Stronger bounds are known.
-		In 2015, Sanna\cite{sanna2015} proved that 
+		In 2015, Sanna~\cite{sanna2015} proved that 
 		\[
 			s_{b}(n!) > C \log n \log \log \log n
 		\]
@@ -464,62 +426,12 @@
 		depending only on $b$,
 		and they established the same lower bound for $s_{b}(\Lambda_n)$.
 
-	\section{Another elementary bound on digital sums}
-
-	We present another elementary bound on digital sums, due to
-	Stolarsky\cite{stolarsky1980} for base two, and generalized to
-	all bases by Balog and Dartyge\cite{balog2012}.
-
-	\begin{theorem}
-		Let $m, r \ge 1$ and $b \ge 2$ be integers.
-		If $m$ is divisible by $b^r - 1$,
-		then $s_b(m) \ge (b-1)r$.
-	\end{theorem}
-
-	\begin{proof}
-		Write the base-$b$ expansion of $m$ as a concatenation of $r$-digit blocks,
-		so that
-		\[
-			m = \sum_{i=0}^{k-1} B_i b^{ri}, \qquad 0 \le B_i < b^r, \qquad B_{k-1} \ge 1.
-		\]
-
-		Define the \emph{block-sum} operator $G$ by
-		\[
-			G(m) = \sum_{i=0}^{k-1} B_i.
-		\]
-		Observe that
-		$G(m) \equiv m \pmod{b^r - 1}$, since $b^r \equiv 1 \pmod{b^r - 1}$.
-		Also, $G(m) < m$ for $m \ge b^r$, and $G(m) = m$ for $0 \le m < b^r$.
-
-		Iterate $G$ on $m$: define $m_0 = m$ and $m_{t+1} = G(m_t)$.
-		By the observations above, $(m_t)$ is a sequence of
-		positive multiples of $b^r - 1$, which is strictly decreasing
-		while its terms exceed $b^r - 1$. Therefore, the sequence must
-		eventually reach $b^r - 1$, which is the unique positive multiple of $b^r - 1$
-		that is less than $b^r$.
-
-		Since $s_b$ is subadditive,
-		\[
-			s_b(G(m)) \le \sum_{i=0}^{k-1} s_b(B_i) = s_b(m).
-		\]
-
-		Therefore,
-		\[
-			s_b(m) \ge s_b(b^r - 1) = (b-1)r.
-		\]
-	\end{proof}
-
-	This result implies lower bounds of the form $s_b(n!) > C \log n$
-	and $s_b(\Lambda_n) > C \log n$ for some $C > 0$, depending only on $b$.
-	For if $n \ge b^r - 1$, then $n!$ and $\Lambda_n$ are divisible by $b^r - 1$,
-	hence $s_b(n!) \ge (b-1)r$ and $s_b(\Lambda_n) \ge (b-1)r$.
-
 	\section{Digital sums of powers: the general case}
 		\label{general-case}
 
 		In this final section, we prove that the number of nonzero digits in the base-$b$
 		expansion of $a^n$ tends to infinity as $n \to \infty$, provided that $\log(b)/\log(a)$
-		is irrational. This result appears in earlier work of Senge–Straus \cite{senge-straus1973} 
+		is irrational. This result appears in earlier work of Senge and Straus \cite{senge-straus1973}
 		and Stewart \cite{stewart1980}, but we present an argument that we hope is more accessible.
 
 		The irrationality condition is necessary. Indeed, if $\log(a)/\log(b) = r/s \in \mathbb{Q}$, then
@@ -557,7 +469,7 @@
 
 		Baker's theorem gives effective lower bounds on linear forms in logarithms
 		of algebraic numbers. In our context, it guarantees that the expression in
-		\eqref{linear-form} (below) cannot be too small, which limits how well powers of $a$
+		\eqref{linear-form} below cannot be too small, which limits how well powers of $a$
 		can be approximated by powers of $b$.
 
 		The next lemma deals with the possibility that some power of $a$ might be divisible by $b$.
@@ -602,8 +514,6 @@
 				c_{b}(a^n) > \frac{\log n}{\log \log n + C}
 			\]
 			for some $C > 0$ depending only on $a$ and $b$.
-			In particular,
-			$c_{b}(a^n) \to \infty$.
 		\end{theorem}
 
 		\begin{proof}
@@ -707,13 +617,6 @@
 
 \begin{thebibliography}{99}
 
-\bibitem{andrica2020}
-Andrica, D., R\u{a}dulescu, S., and {\c{T}}urca{\c{s}}, G.\ C.,
-``The exponent of a group: Properties, computations and applications,''
-in \textit{Discrete Mathematics and Applications},
-A.\ M.\ Raigorodskii and M.\ Th.\ Rassias (eds.),
-Springer, Cham, 2020, pp.~57--108.
-
 \bibitem{balog2012}
 Balog, A. and Dartyge, C.,
 ``On the sum of the digits of multiples.''
@@ -724,11 +627,6 @@ Balog, A. and Dartyge, C.,
 Baker, A.,
 \textit{Transcendental Number Theory},
 Cambridge University Press, Cambridge, 1975.
-
-\bibitem{dickson1919}
-Dickson, L.\ E.,
-\textit{History of the Theory of Numbers}, Vol.~1,
-Carnegie Institution of Washington, 1919.
 
 \bibitem{knuth1997}
 Knuth, D.\ E.,
