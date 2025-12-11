@@ -71,11 +71,12 @@ $0, 1, 2, \ldots, 9$.
 However, this stronger conjecture remains to be proved.
 See Figure~\ref{fig:s10_scatter}.
 
-\begin{figure} \label{fig:s10_scatter}
+\begin{figure} 
 	\centering
 	\includegraphics[width=0.8\linewidth]{s10_scatter.png}
 	\caption{Scatter plot of the digital sum of $2^n$ for $n \le 100$
 		together with the conjectured linear approximation.}
+	\label{fig:s10_scatter}
 \end{figure}
 
 We prove in Section~\ref{sec:powers-of-two} that the digital
@@ -270,12 +271,10 @@ showed that for integers $a \ge 1$ and $b \ge 2$,
 	\quad\Longleftrightarrow\quad
 	\frac{\log a}{\log b} \text{ is irrational}.
 \]
-Their result provides a qualitative criterion for unbounded digit growth,
-but it does not yield any explicit lower bound.
+However, their result does not yield any explicit lower bound.
 
-Subsequently, Stewart~\cite[Theorem 2]{stewart1980} obtained the first
-general quantitative estimate.  Under the same hypothesis of irrationality of
-$\log(a)/\log(b)$, he proved that
+Subsequently, Stewart~\cite[Theorem 2]{stewart1980} proved
+that if $\log a\,/\log b$ is irrational then
 \[
 	c_b(a^n) > \frac{\log n}{\log\log n + C} - 1
 \]
@@ -283,18 +282,14 @@ for all $n>4$, where $C$ depends only on $a$ and $b$.
 This bound is extremely general but grows more slowly than logarithmic.
 
 In this section we prove a logarithmic lower bound for $c_b(a^n)$ under
-a set of hypotheses that are stronger than Stewart's but still hold in
-many natural situations.  Our approach proceeds in two steps:
-first we establish a structural digit-sum bound for integers that are
-divisible by powers of $a$ but not by $b$, and then we apply it to $a^n$
-itself under an additional condition.
+conditions that are stronger than Stewart's.
 The first step (Theorem~\ref{thm:multiples-of-powers} below)
 generalizes the corresponding base-$10$ argument from the previous section.
 
 \begin{theorem} \label{thm:multiples-of-powers}
 	Let $a, b$ be integers such that $2 \le a < b$ and $a$ divides $b$.
 	Let $(e_{k})$ be a sequence of integers such that $e_{1} \ge 1$ and
-	$a^{e_{k}} \ge b^{e_{k-1}}$ for all $k \ge 2$.
+	$a^{e_{k}} > b^{e_{k-1}}$ for all $k \ge 2$.
 	If $a^{e_{k}}$ divides $n$ and $b \nmid n$, then $c_b(n) \ge k$.
 \end{theorem}
 
@@ -311,7 +306,7 @@ generalizes the corresponding base-$10$ argument from the previous section.
 		c_b(N) > C \log n
 	\]
 	for $n$ sufficiently large.
-	Indeed, we can choose any $0 < C < (\log(\log b / \log a))^{-1}$.
+	Indeed, we can choose any $0 < C < (\log(\log b\, / \log a))^{-1}$.
 \end{theorem}
 
 \begin{proof}
@@ -406,38 +401,31 @@ We now come to the main result of this section.
 
 \begin{proof}
 	Let $a^n = b^r u$, where $b \nmid u$.
-	If $\log d\, / \log b$ is irrational, then $\log a\, / \log b$ is also irrational;
-	so Lemma~\ref{lemma-1} implies that there exists a prime factor $p$ of $a$, and $C' > 0$ depending
-	only on $a$ and $b$, such that $\nu_p(u) \ge C' n$.
+	Since $(a/d)^n$ divides $a^n$ and is coprime to $b^r$, it must divide $u$.
+	Therefore, $d^n = b^r v$, where $v$ is an integer multiple of $u$.
 
-	But $p$ also divides $d$, since $\gcd(p, a/d) = 1$.
+	Lemma~\ref{lemma-1} implies that there exists a prime factor $p$ of $a$, and $C' > 0$ depending
+	only on $a$ and $b$, such that $\nu_p(v) \ge C' n$.
+	But $u$ is a multiple of $v$, hence $\nu_p(u) \ge C' n$.
 	Therefore, $c_b(u) > C \log n$ for some $C > 0$, by Theorem~\ref{thm:cbn}.
 
 	Finally, $c_b(u) = c_b(a^n)$, since $u$ and $a^n$ have
 	the same digit expansion, apart from trailing zeros.
 \end{proof}
 
-\section{Digital sums of factorials and LCMs}
+\section{Digital sums of factorials and LCMs} 
+\label{sec:factorials-lcms}
 
-The results of the previous section showed how information about the
-prime-power divisibility of an integer can force its base-$b$ digital sum
-to grow at least logarithmically.  Although we now turn to a different
-family of integers, namely $n!$ and the least common multiple
-$\Lambda_n = \lcm(1,\dots,n)$, the same guiding principle remains:
-multiplicative structure can impose strong, and often very elementary,
-constraints on possible base-$b$ representations.
+In this section, we prove logarithmic lower bounds for the base-$b$
+digital sums of $n!$ and $\Lambda_n = \lcm(1,\ldots, n)$.
+In contrast with the situation for $a^n$, where prime-power divisibilty
+played a central role, the key feature for factorials and LCMs
+is that both $n!$ and $\Lambda_n$ are divisible by large integers
+having a special form.
 
-In contrast with the situation for $a^n$, where prime-power divisibility
-played a central role, the key structural feature for factorials and LCMs
-is that both $n!$ and $\Lambda_n$ are divisible by large integers of the
-form $b^r - 1$.
-This observation leads immediately to logarithmic lower bounds on their
-digital sums, provided one has an effective way to bound the digital sum of
-a multiple of $b^r - 1$.
-
-The following lemma, originally proved by Stolarsky~\cite{stolarsky1980}
-for base $2$ and extended to general bases by Balog and
-Dartyge~\cite{balog2012}, supplies exactly such a tool.
+The key insight is provided by the following lemma, which was
+original proved by Stolarsky~\cite{stolarsky1980} for base $2$,
+and extended to general bases by Balog and Dartyge~\cite{balog2012}.
 
 \begin{lemma} \label{lemma-balog}
 	Let $m, r \ge 1$ and $b \ge 2$ be integers.
@@ -506,12 +494,13 @@ already imply logarithmic growth.
 We conjecture that $s_{b}(n!) \asymp n \log n$ and $s_b(\Lambda_n) \asymp n$,
 but this remains to be proved. See Figure~\ref{fig:s10_fact_lcm_scatter}.
 
-\begin{figure} \label{fig:s10_fact_lcm_scatter}
+\begin{figure} 
 	\centering
 	\includegraphics[width=0.8\linewidth]{lcm_fact_scatter.png}
 	\caption{Scatter plot of the digital sums of $n!$ and $\Lambda_n$
 		for $n \le 100$,
 		together with their conjectured approximations.}
+	\label{fig:s10_fact_lcm_scatter}
 \end{figure}
 
 \section{Digital sums of powers: the general case} \label{general-case}
