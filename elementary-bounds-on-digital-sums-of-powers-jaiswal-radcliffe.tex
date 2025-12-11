@@ -211,7 +211,7 @@ Let us formalize this argument.
 	\]
 	for integers $q$, $r$.
 
-	Because $n \ge 2^{e_k)} > 10^{e_{k-1}}$ by hypothesis,
+	Because $n \ge 2^{e_k} > 10^{e_{k-1}}$ by hypothesis,
 	the quotient satisfies $q \ge 1$.
 
 	Next, both $n$ and $10^{e_{k-1}} q$ are divisible by $2^{e_{k-1}}$,
@@ -400,17 +400,32 @@ We now come to the main result of this section.
 \end{theorem}
 
 \begin{proof}
-	Let $a^n = b^r u$, where $b \nmid u$.
-	Since $(a/d)^n$ divides $a^n$ and is coprime to $b^r$, it must divide $u$.
-	Therefore, $d^n = b^r v$, where $v$ is an integer multiple of $u$.
+	Write $a^n = b^r u$ with $b \nmid u$, and set $g = a/d$.
+	Since $g^n \mid a^n$ and $\gcd(g, b) = 1$, it follows that $g^n \mid u$.
+	Define $v = u / g^n$; then $d^n = b^r v$.
 
-	Lemma~\ref{lemma-1} implies that there exists a prime factor $p$ of $a$, and $C' > 0$ depending
-	only on $a$ and $b$, such that $\nu_p(v) \ge C' n$.
-	But $u$ is a multiple of $v$, hence $\nu_p(u) \ge C' n$.
-	Therefore, $c_b(u) > C \log n$ for some $C > 0$, by Theorem~\ref{thm:cbn}.
+	By Lemma~\ref{lemma-1},
+	there exists a prime divisor $p$ of $d$ such that
+	\[
+		\nu_p(v) \ge C' n,
+	\]
+	for some constant $C' > 0$ depending only on $a$ and $b$.
 
-	Finally, $c_b(u) = c_b(a^n)$, since $u$ and $a^n$ have
-	the same digit expansion, apart from trailing zeros.
+	Because $\gcd(d, g) = 1$, the prime $p$ does not divide $g$,
+	and hence $\nu_p(u) = \nu_p(v)$. 
+	Therefore, by Theorem~\ref{thm:cbn},
+	\[
+		c_b(v) > C \log n.
+	\]
+
+	Finally, $c_{b}(a^{n}) = c_{b}(u)$, 
+	since $u$ and $a^{n}$ differ only by a power of $b$ 
+	and thus have the same base-$b$ expansion up to trailing zeros.
+	
+	Consequently,
+	\[
+		c_b(a^n) > C \log n.
+	\]
 \end{proof}
 
 \section{Digital sums of factorials and LCMs} 
@@ -418,7 +433,7 @@ We now come to the main result of this section.
 
 In this section, we prove logarithmic lower bounds for the base-$b$
 digital sums of $n!$ and $\Lambda_n = \lcm(1,\ldots, n)$.
-In contrast with the situation for $a^n$, where prime-power divisibilty
+In contrast with the situation for $a^n$, where prime-power divisibility
 played a central role, the key feature for factorials and LCMs
 is that both $n!$ and $\Lambda_n$ are divisible by large integers
 having a special form.
@@ -592,68 +607,68 @@ We now prove the main theorem.
 \begin{proof}
 	Let
 	\[
-		a^n = b^m \left(d_1 b^{-m(1)} + \cdots + d_k b^{-m(k)}\right),
+		a^n = b^m \left(d_1 b^{-m_1} + \cdots + d_k b^{-m_k}\right),
 	\]
 	where $m = \lceil \log_b a^n \rceil$, $k = c_{b}(a^n)$,
 	$d_i \in \{1, \ldots, b-1\}$,
 	and
 	\[
-		1 = m(1) < \cdots < m(k) \le m.
+		1 = m_1 < \cdots < m_k \le m.
 	\]
 	That is, $d_1, \ldots, d_k$ are the nonzero digits of $a^n$ in base $b$,
-	and $m(1), \ldots, m(k)$ are their positions when the digits are numbered
+	and $m_1, \ldots, m_k$ are their positions when the digits are numbered
 	from left (most significant) to right (least significant).
 	We may assume that $k \ge 2$.
 
-	Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m(i+1)/m(i)$,
+	Fix $i\in \{1,\dots,k-1\}$. We estimate the ratio $m_{i+1}/m_{i}$,
 	which will ultimately bound $k$.
 
 	Define
 	\begin{align*}
-		q & = b^{m(i)} (d_1 b^{-m(1)} + \cdots + d_i b^{-m(i)}),  \\
-		r & = b^m (d_{i+1} b^{-m(i+1)} + \cdots + d_k b^{-m(k)}),
+		q & = b^{m_{i}} (d_1 b^{-m_{1}} + \cdots + d_i b^{-m_{i}}),  \\
+		r & = b^m (d_{i+1} b^{-m_{i+1}} + \cdots + d_k b^{-m_{k}}),
 	\end{align*}
 	so that
 	\[
-		a^n = b^{m - m(i)} q + r.
+		a^n = b^{m - m_i} q + r.
 	\]
 
 	From the base-$b$ expansion we obtain the bounds
 	\begin{align*}
 		b^{m-1}      & \le a^n \le b^m,            \\
-		b^{m(i)-1}   & \le q   \le b^{m(i)},       \\
-		b^{m-m(i+1)} & \le r   \le b^{m-m(i+1)+1}.
+		b^{m_{i}-1}   & \le q   \le b^{m_i},       \\
+		b^{m-m_{i+1}} & \le r   \le b^{m-m_{i+1}+1}.
 	\end{align*}
 
 	Consequently,
 	\[
-		b^{-m(i+1)} < a^{-n} r < b^{-m(i+1)+2},
+		b^{-m_{i+1}} < a^{-n} r < b^{-m_{i+1}+2},
 	\]
 
 	which implies that
 	\[
-		\frac{m(i+1) - 2}{m(i)} \le
+		\frac{m_{i+1} - 2}{m_{i}} \le
 		\frac{-\log(a^{-n}r)}{\log q} \le
-		\frac{m(i+1)}{m(i) - 1}
+		\frac{m_{i+1}}{m_{i} - 1}
 	\]
-	provided that $q \ge 2$ and $m(i) \ge 2$.
+	provided that $q \ge 2$ and $m_i \ge 2$.
 
-	If $m(i) \ge 3$ (and $m(i+1) \ge 4$) then
+	If $m_i \ge 3$ (and $m_{i+1} \ge 4$) then
 	\[
-		\frac{m(i+1)-2}{m(i)} \ge \frac12\, \frac{m(i+1)}{m(i)},
+		\frac{m_{i+1}-2}{m_{i}} \ge \frac12\, \frac{m_{i+1}}{m_{i}},
 		\qquad
-		\frac{m(m+1)}{m(i)-1} \le \frac32\, \frac{m(i+1)}{m(i)},
+		\frac{m_{i+1}}{m_{i}-1} \le \frac32\, \frac{m_{i+1}}{m_{i}},
 	\]
 	hence
 	\begin{equation} \label{estimate-1}
-		\frac12\, \frac{m(i+1)}{m(i)} \le
+		\frac12\, \frac{m_{i+1}}{m_{i}} \le
 		\frac{-\log(a^{-n}r)}{\log q} \le
-		\frac32\, \frac{m(i+1)}{m(i)}.
+		\frac32\, \frac{m_{i+1}}{m_{i}}.
 	\end{equation}
 
 	Now set
 	\begin{equation} \label{linear-form}
-		\Lambda = \log(a^{-n} b^{m - m(i)} q) = -n \log a + (m - m(i)) \log b + \log q.
+		\Lambda = \log(a^{-n} b^{m - m_i} q) = -n \log a + (m - m_i) \log b + \log q.
 	\end{equation}
 	Then (since $a^{-n} r < 1/2$)
 	\[
@@ -663,7 +678,7 @@ We now prove the main theorem.
 	We apply Baker's theorem to the linear form in \eqref{linear-form}.
 	There are two cases, depending on the size of $q$.
 
-		{\bf Case 1:} $q < b^2$, or equivalently, $m(i) \le 2$.
+		{\bf Case 1:} $q < b^2$, or equivalently, $m_i \le 2$.
 
 	In this case, we can apply Baker's theorem with
 	$A = b^2$ and $B = n$ to obtain
@@ -677,20 +692,20 @@ We now prove the main theorem.
 	\]
 	and hence, for $n$ sufficiently large,
 	\[
-		2 b^{-m(i+1)+2} > n^{-C_1},
+		2 b^{-m_{i+1}+2} > n^{-C_1},
 	\]
 	which implies that
 	\[
-		m(i+1) < C_2 \log n
+		m_{i+1} < C_2 \log n
 	\]
 	for some $C_{2}>0$ depending only on $a$ and $b$.
 
-	Since $m(i) \ge 1$, we also have
+	Since $m_{i} \ge 1$, we also have
 	\[
-		\frac{m(i+1)}{m(i)} < C_2 \log n.
+		\frac{m_{i+1}}{m_{i}} < C_2 \log n.
 	\]
 
-	{\bf Case 2:} $q > b^2$, or equivalently, $m(i) \ge 3$.
+	{\bf Case 2:} $q > b^2$, or equivalently, $m_{i} \ge 3$.
 
 	In this case, we can apply Baker's theorem with
 	$A = q$ and $B = n$ to obtain
@@ -709,31 +724,31 @@ We now prove the main theorem.
 
 	Combining \eqref{estimate-1} and \eqref{estimate-2} gives
 	\begin{equation*} \label{m-ratio}
-		\frac{m(i+1)}{m(i)} < C_5 \log n, \qquad C_5 = 2C_4.
+		\frac{m_{i+1}}{m_{i}} < C_5 \log n, \qquad C_5 = 2C_4.
 	\end{equation*}
 
 	In either case, we have
 	\[
-		\frac{m(i+1)}{m(i)} < C_6 \log n, \qquad C_6 = \max(C_2, C_5).
+		\frac{m_{i+1}}{m_{i}} < C_6 \log n, \qquad C_6 = \max(C_2, C_5).
 	\]
 
 	Summing the logarithms of these ratios,
 	\[
-		\log m(k) = \sum_{i=1}^{k-1} \log \left(\frac{m(i+1)}{m(i)}\right)
+		\log m_k = \sum_{i=1}^{k-1} \log \left(\frac{m_{i+1}}{m_{i}}\right)
 	\]
 	which yields
 	\begin{equation} \label{estimate-3}
-		\log m(k) < (k - 1) (\log \log n + C_{7}), \qquad C_7 = \log C_6.
+		\log m_k < (k - 1) (\log \log n + C_{7}), \qquad C_7 = \log C_6.
 	\end{equation}
 
-	Write $a^n$ as $b^{m-m(k)} u$, where
+	Write $a^n$ as $b^{m-m_k} u$, where
 	\[
-		b^{m(k)-1} < u < b^{m(k)}.
+		b^{m_k-1} < u < b^{m_k}.
 	\]
 
-	Thus $m(k) \asymp \log(u)$, and $\log(u) \asymp n$ by Lemma~\ref{lemma}, so
+	Thus $m_k \asymp \log(u)$, and $\log(u) \asymp n$ by Lemma~\ref{lemma}, so
 	\begin{equation} \label{log-mk}
-		\log m(k) = \log n + O(1).
+		\log m_k = \log n + O(1).
 	\end{equation}
 	Therefore, \eqref{estimate-3} and \eqref{log-mk} imply that
 	\[
