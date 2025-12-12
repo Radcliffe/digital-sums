@@ -1,4 +1,4 @@
-\documentclass[12pt]{amsart} 
+\documentclass[12pt]{amsart}
 \usepackage{geometry}
 \geometry{letterpaper}
 \usepackage{amsmath}
@@ -553,38 +553,6 @@ We may assume without loss of generality that $a < b$. If not, replace
 $b$ with $b^r$, where $b^r > a$. Since $c_{b^r}(n) \ge c_{b}(n) / r$,
 this replacement does not affect the order of growth.
 
-Our proof relies on a version of Baker's theorem on linear forms in logarithms,
-which we state without proof.
-
-\begin{theorem} \cite[p. 23]{baker1975} \label{baker}
-	Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
-	at most $d$. Suppose that $\alpha_1, \ldots, \alpha_{n-1}$ and $\alpha_n$
-	have heights at most $A' \ge 4$ and $A \ge 4$ respectively.
-	Let $\beta_1, \ldots, \beta_n$ be integers of absolute value at most $B \ge 2$.
-	If
-	\[
-		\Lambda = \beta_1 \log \alpha_1 + \cdots + \beta_n \alpha_n \ne 0,
-	\]
-	there exists $C > 1$, depending only on $n$, $d$, and $A'$,
-	such that
-	\[
-		|\Lambda| > C^{-\log A \log B}.
-	\]
-	See \cite{matveev2000} for an explicit lower bound.
-\end{theorem}
-
-Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible
-integer polynomial $P$ with positive leading coefficient and coprime coefficients.
-The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height}
-of $\alpha$ is the maximum of the absolute values of the cofficients of $P$.
-A rational integer has degree $1$ and height equal to its absolute value.
-In our application of Baker's theorem, $\alpha_1, \ldots, \alpha_n$ are rational integers.
-
-Baker's theorem gives effective lower bounds on linear forms in logarithms
-of algebraic numbers. In our context, it guarantees that the expression in
-\eqref{def:Lambda} below cannot be too small, which limits how well powers of $a$
-can be approximated by powers of $b$.
-
 The following lemma will permit us to disregard trailing zeros in the base-$b$
 expansion of $a^n$.
 
@@ -622,6 +590,38 @@ expansion of $a^n$.
 	\]
 	holds for all $n$, where $C = C_1 \log p$ and $C' = \log a$.
 \end{proof}
+
+Our proof relies on a version of Baker's theorem on lower bounds for
+linear forms in logarithms, which we state without proof.
+See \cite{matveev2000} for an explicit lower bound.
+
+\begin{theorem} \cite[p. 23]{baker1975} \label{baker}
+	Let $\alpha_1, \ldots, \alpha_n$ be nonzero algebraic numbers with degrees
+	at most $d$. Suppose that $\alpha_1, \ldots, \alpha_{n-1}$ and $\alpha_n$
+	have heights at most $A' \ge 4$ and $A \ge 4$ respectively.
+	Let $\beta_1, \ldots, \beta_n$ be integers of absolute value at most $B \ge 2$.
+	If
+	\[
+		\Lambda = \beta_1 \log \alpha_1 + \cdots + \beta_n \alpha_n \ne 0,
+	\]
+	there exists $C > 1$, depending only on $n$, $d$, and $A'$,
+	such that
+	\[
+		|\Lambda| > C^{-\log A \log B}.
+	\]
+\end{theorem}
+
+Recall that a nonzero algebraic number $\alpha \in \mathbb{C}$ is a root of a unique irreducible
+integer polynomial $P$ with positive leading coefficient and coprime coefficients.
+The \emph{degree} of $\alpha$ is equal to the degree of $P$, and the \emph{height}
+of $\alpha$ is the maximum of the absolute values of the cofficients of $P$.
+A rational integer has degree $1$ and height equal to its absolute value.
+In our application of Baker's theorem, $\alpha_1, \ldots, \alpha_n$ are rational integers.
+
+Baker's theorem gives effective lower bounds on linear forms in logarithms
+of algebraic numbers. In our context, it guarantees that the expression in
+\eqref{def:Lambda} below cannot be too small, which limits how well powers of $a$
+can be approximated by powers of $b$.
 
 We now prove the main theorem.
 
