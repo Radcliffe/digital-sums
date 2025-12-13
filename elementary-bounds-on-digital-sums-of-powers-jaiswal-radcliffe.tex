@@ -405,7 +405,7 @@ divide $N$.
 We now come to the main result of this section.
 
 \begin{theorem} \label{general-digit-sum}
-	Let $a \ge 2$ and $b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
+	Let $a, b \ge 2$ be integers. Let $d$ be the smallest factor of $a$
 	such that $\gcd(a/d, b) = 1$, and suppose that $\log(d) / \log(b)$ is irrational.
 	Then $c_{b}(a^{n}) > C \log n$ for all sufficiently large $n$,
 	where $C > 0$ depends only on $a$ and $b$.
@@ -571,7 +571,7 @@ expansion of $a^n$.
 \end{lemma}
 
 \begin{proof}
-	By Lemma~\ref{lem:nu-p-estimate},
+	By Lemma~\ref{lem:nu-p-estimate}, there exists a prime divisor $p$ of $a$ such that
 	\[
 		\nu_p(t) > C_1 n
 	\]
