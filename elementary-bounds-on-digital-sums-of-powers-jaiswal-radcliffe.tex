@@ -17,7 +17,7 @@
 
 \title{Elementary Bounds on Digital Sums of Powers, Factorials, and LCMs}
 \author{Shreyansh Jaiswal and David G. Radcliffe}
-\date{December 12, 2025}
+\date{December 13, 2025}
 
 \begin{document}
 
@@ -37,12 +37,12 @@ multiple of $\{1,\ldots, n\}$, using only elementary number theory.
 We were inspired by the following problem, which was posed and solved
 by Wac{\l}aw Sierpi{\'n}ski~\cite[Problem 209]{sierpinski1970}:
 \begin{quote}
-	\emph{Prove that the sum of digits of the number $2^{n}$ (in decimal system)
+	\emph{Prove that the sum of digits of the number $2^n$ (in decimal system)
 		increases to infinity with $n$.}
 \end{quote}
 
 The reader is urged to attempt this problem on their own before proceeding.
-Note that it is not enough to prove that the sum of digits of $2^{n}$ is
+Note that it is not enough to prove that the sum of digits of $2^n$ is
 unbounded, since the sequence is not monotonic.
 
 Consider the sequence of powers of $2$ (sequence \href{https://oeis.org/A000079}{A000079}
@@ -63,9 +63,9 @@ becomes $3+2=5$. The first few terms of this new sequence
 
 This sequence of digital sums grows much more slowly, and it is not monotonic.
 Nevertheless, it is reasonable to conjecture that it tends to infinity.
-Indeed, one might guess that the sum of the decimal digits of $2^{n}$
+Indeed, one might guess that the sum of the decimal digits of $2^n$
 is approximately equal to $4.5 n \log_{10}2$,
-since $2^{n}$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits,
+since $2^n$ has $\lfloor n \log_{10}2\rfloor + 1$ decimal digits,
 and the digits seem to be approximately uniformly distributed among
 $0, 1, 2, \ldots, 9$.
 However, this stronger conjecture remains to be proved.
@@ -80,7 +80,7 @@ See Figure~\ref{fig:digital-sum-2-to-n}.
 \end{figure}
 
 We prove in Section~\ref{sec:powers-of-two} that the digital
-sum of $2^n$ is greater than $\log_4 n$ for all $n \ge 1$.
+sum of $2^{n}$ is greater than $\log_4 n$ for all $n \ge 1$.
 But first, we review the relevant notation and terminology.
 
 \section{Notation and terminology} \label{sec:notation}
@@ -153,33 +153,46 @@ means that there exist positive real numbers $C$ and $C'$ such that
 
 \section{Digital sums of powers of two} \label{sec:powers-of-two}
 
-We present an informal proof that $c_{10}(2^{n})$ tends to infinity as $n \to \infty$.
+We present an informal proof that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
 See \cite{radcliffe2016} for an alternative approach.
 
 Let $n$ be a positive integer, and write the decimal expansion of $2^n$ as
-$2^n = \sum_{i=0}^{\infty} d_i 10^i$, where $d_i \in \{0, \ldots, 9\}$
-and $d_i = 0$ for all but finitely many terms.
-Note that the final digit $d_0$ of $2^{n}$ cannot be zero,
-since $2^n$ is not divisible by $10$.
+\[
+2^n = \sum_{i=0}^{\infty} d_i 10^i,
+\]
+where each $d_i \in \{0,\dots,9\}$ and all but finitely many $d_i$ are zero.
+Since $2^n$ is not divisible by $10$, its final digit $d_0$ is nonzero.
 
-If $2^{n} > 10$, then $2^{n}$ is divisible by $16$; so
-$2^{n} \bmod 10^{4}$, the number formed by the last four digits of $2^{n}$, is
-also divisible by $16$. If the first three of these digits were zero, then $2^{n}
-	\bmod 10^{4}$ would be less than $10$, which is impossible.
-So at least one of the digits $d_1, d_2, d_3$ is nonzero.
+Assume first that $n \ge 4$. Then $2^n$ is divisible by $2^4 = 16$.
+Consider the last four digits of $2^n$, that is,
+\[
+2^n \bmod 10^4.
+\]
+This number is divisible by $16$. If the digits $d_1,d_2,d_3$ were all zero,
+then this remainder would be less than $10$, and hence could not be divisible
+by $16$. Therefore at least one of the digits $d_1,d_2,d_3$ is nonzero.
 
-If $2^{n} > 10^4$, then $2^{n}$ is divisible by $2^{14}$; so
-$2^{n} \bmod 10^{14}$, the number formed by the last $14$ digits of $2^{n}$,
-is also divisible by $2^{14}$. If the first $10$ of these digits were zero,
-then $2^{n} \bmod 10^{14}$ would be less than $10^{4}$, which is impossible.
-So at least one of the digits $d_4, d_5, \ldots, d_{13}$ is nonzero.
+Now assume $n \ge 14$. Then $2^n$ is divisible by $2^{14}$.
+Since $2^{14} > 10^4$, any number divisible by $2^{14}$ % and less than $10^{14}$
+must be at least $10^4$.
+Thus the last $14$ digits of $2^n$,
+\[
+2^n \bmod 10^{14},
+\]
+cannot be less than $10^4$.
+If the digits $d_4,d_5,\dots,d_{13}$ were all zero, this remainder would be
+less than $10^4$, which is impossible. Hence at least one digit in this block
+is nonzero.
 
-We can continue in this way, finding longer and longer non-overlapping blocks
-of digits, each containing at least one nonzero digit, as illustrated in
-Figure~\ref{fig-blocks}.
-This proves that $c_{10}(2^n)$ tends to infinity as $n \to \infty$.
+Continuing in this way, as $n$ increases, we obtain new blocks of decimal
+digits, each containing at least one nonzero digit.
+These blocks are disjoint, and the number of such blocks grows without
+bound as $n \to \infty$.
 
-\begin{figure} \label{fig-blocks}
+Therefore the number of nonzero decimal digits of $2^n$ tends to infinity as
+$n \to \infty$. See Figure~\ref{fig:blocks}
+
+\begin{figure} \label{fig:blocks}
 	\begin{tabular}{lcrrrrr}
 		$2^0$     & = &   &                                   &            &     & 1 \\
 		$2^4$     & = &   &                                   &            & 1   & 6 \\
